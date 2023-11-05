@@ -1,0 +1,25 @@
+.context {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 65px);
+  justify-content: space-between;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.context-word-list {
+  margin-top: 30px;
+  margin-left: 15px;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+}
+
+.content-button-container {
+  display: flex;
+  justify-content: center;
+}

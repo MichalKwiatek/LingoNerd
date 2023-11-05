@@ -1,0 +1,17 @@
+.placement {
+  margin-top: 5px;
+  background: white;
+}
+
+.word-list {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.word {
+  margin-top: 5px;
+}
+
+.value-info {
+  margin-bottom: 20px !important;
+}

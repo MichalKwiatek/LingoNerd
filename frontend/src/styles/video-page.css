@@ -1,0 +1,11 @@
+.video-page {
+  display: flex;
+  padding-top: 30px;
+}
+
+.video {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}

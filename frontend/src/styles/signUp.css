@@ -1,0 +1,19 @@
+.sign-up-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.sign-up-form {
+  margin: 10px;
+}
+
+.sign-up-email-input {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 15px;
+}

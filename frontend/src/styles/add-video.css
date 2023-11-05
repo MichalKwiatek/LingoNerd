@@ -1,0 +1,10 @@
+.start-time-panel {
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.start-time-input {
+  width: 40px;
+  margin-left: 10px;
+}

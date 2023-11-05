@@ -1,0 +1,7 @@
+.subtitle {
+
+}
+
+.subtitle:hover {
+  border: 1px solid orange;
+}

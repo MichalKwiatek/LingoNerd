@@ -1,0 +1,21 @@
+.leftSide {
+  content: '';
+  background-color: #000;
+  position: absolute;
+  left: -2px;
+  width: 2px;
+  height: 100%;
+  cursor: ew-resize;
+  top: 0;
+}
+
+.rightSide {
+  content: '';
+  background-color: #000;
+  position: absolute;
+  right: -2px;
+  width: 2px;
+  height: 100%;
+  cursor: ew-resize;
+  top: 0;
+}
