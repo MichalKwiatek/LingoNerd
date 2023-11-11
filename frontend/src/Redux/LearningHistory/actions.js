@@ -9,7 +9,7 @@ import {
   SET_WORD_AS_SEEN,
 } from './constants/actions'
 import { getWordTimesSeen } from './selectors'
-import { parseClipLike, parseLearntWord, parseVideoLike } from './utils'
+// import { parseClipLike, parseLearntWord, parseVideoLike } from './utils'
 
 export const setWordContextAsSeen =
   (wordId, contextId) => (dispatch, getState) => {
@@ -28,40 +28,49 @@ export const setWordAsPresented = (wordId) => (dispatch, getState) => {
 }
 
 export const fetchLearningHistory = (dispatch, getState) => {
-  const userId = getCurrectUserId(getState())
+  // const userId = getCurrectUserId(getState())
 
-  fetch(`${API_URL}/getLearningHistory?userId=${userId}`)
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data)
-      const learningHistory = data.learningHistory.map(parseLearntWord)
-      const videoLikes = data.videoLikes.map(parseVideoLike)
-      const clipLikes = data.clipLikes.map(parseClipLike)
+  dispatch({
+    type: FETCH_LEARNING_HISTORY,
+    history,
+    previouslyKnownWords: [],
+    selectedLevel: 0,
+    clipLikes: {},
+    videoLikes: {},
+  })
 
-      const history = {}
-      learningHistory.forEach((learntWord) => {
-        history[learntWord.wordId] = learntWord
-      })
+  // fetch(`${API_URL}/getLearningHistory?userId=${userId}`)
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     console.log(data)
+  //     const learningHistory = data.learningHistory.map(parseLearntWord)
+  //     const videoLikes = data.videoLikes.map(parseVideoLike)
+  //     const clipLikes = data.clipLikes.map(parseClipLike)
 
-      const videoLikesMap = {}
-      videoLikes.forEach((videoLike) => {
-        videoLikesMap[videoLike.videoId] = videoLike
-      })
+  //     const history = {}
+  //     learningHistory.forEach((learntWord) => {
+  //       history[learntWord.wordId] = learntWord
+  //     })
 
-      const clipLikesMap = {}
-      clipLikes.forEach((clipLike) => {
-        clipLikesMap[`${clipLike.wordId}||${clipLike.contextId}`] = clipLike
-      })
+  //     const videoLikesMap = {}
+  //     videoLikes.forEach((videoLike) => {
+  //       videoLikesMap[videoLike.videoId] = videoLike
+  //     })
 
-      dispatch({
-        type: FETCH_LEARNING_HISTORY,
-        history,
-        previouslyKnownWords: data.knownWords,
-        selectedLevel: data.selectedLevel,
-        clipLikes: clipLikesMap,
-        videoLikes: videoLikesMap,
-      })
-    })
+  //     const clipLikesMap = {}
+  //     clipLikes.forEach((clipLike) => {
+  //       clipLikesMap[`${clipLike.wordId}||${clipLike.contextId}`] = clipLike
+  //     })
+
+  //     dispatch({
+  //       type: FETCH_LEARNING_HISTORY,
+  //       history,
+  //       previouslyKnownWords: data.knownWords,
+  //       selectedLevel: data.selectedLevel,
+  //       clipLikes: clipLikesMap,
+  //       videoLikes: videoLikesMap,
+  //     })
+  //   })
 }
 
 export const setWordAsSeen = (wordId) => (dispatch, getState) => {
