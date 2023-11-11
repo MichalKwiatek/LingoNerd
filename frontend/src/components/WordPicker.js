@@ -6,7 +6,7 @@ import debounce from 'lodash.debounce'
 import { searchWord } from '../Redux/Word/actions'
 import conjugateTranslation from '../utils/getVerbLabel'
 
-function WordPicker (props) {
+function WordPicker(props) {
   const [isLoading, setIsLoading] = useState(false)
   const [queryOptions, setQueryOptions] = useState({})
   const [query, setQuery] = useState('')
@@ -29,18 +29,18 @@ function WordPicker (props) {
     }
   }
 
-  const debouncedChangeHandler = useCallback(
-    debounce(onKeyUp, 400)
-    , [])
+  const debouncedChangeHandler = useCallback(debounce(onKeyUp, 400), [])
 
   return (
     <div>
       <Autocomplete
         sx={{ width: 300 }}
-        options={(queryOptions[query] || []).map(word => ({
-          ...word,
-          label: `${word.lemma} - ${conjugateTranslation(word)}`
-        })).sort((a, b) => a.lemma.length - b.lemma.length)}
+        options={(queryOptions[query] || [])
+          .map((word) => ({
+            ...word,
+            label: `${word.lemma} - ${conjugateTranslation(word)}`,
+          }))
+          .sort((a, b) => a.lemma.length - b.lemma.length)}
         loading={isLoading}
         onChange={onChange}
         onKeyUp={debouncedChangeHandler}
@@ -52,10 +52,12 @@ function WordPicker (props) {
               ...params.InputProps,
               endAdornment: (
                 <React.Fragment>
-                  {isLoading ? <CircularProgress color="inherit" size={20} /> : null}
+                  {isLoading ? (
+                    <CircularProgress color="inherit" size={20} />
+                  ) : null}
                   {params.InputProps.endAdornment}
                 </React.Fragment>
-              )
+              ),
             }}
           />
         )}

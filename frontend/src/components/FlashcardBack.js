@@ -10,41 +10,39 @@ import mixpanel from 'mixpanel-browser'
 import { getCurrectUserId } from '../Redux/User/selectors'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
-function FlashcardBack (props) {
+function FlashcardBack(props) {
   const word = useSelector(getWord(props.id))
 
   const currentUserId = useSelector(getCurrectUserId)
 
   const isMobile = useMediaQuery('(max-width:768px)')
 
-  function onWrongAnswer (e) {
+  function onWrongAnswer(e) {
     e.stopPropagation()
 
     mixpanel.track('WRONG_ANSWER', {
       userId: currentUserId,
       wordId: word.id,
-      wordFront: word.lemma
+      wordFront: word.lemma,
     })
 
     props.onWrongAnswer()
   }
 
-  function onCorrectAnswer (e) {
+  function onCorrectAnswer(e) {
     e.stopPropagation()
 
     mixpanel.track('CORRECT_ANSWER', {
       userId: currentUserId,
       wordId: word.id,
-      wordFront: word.lemma
+      wordFront: word.lemma,
     })
 
     props.onCorrectAnswer()
   }
 
   return (
-    <div
-      className="flashcard-back"
-    >
+    <div className="flashcard-back">
       <Paper
         style={{
           width: isMobile ? '90%' : '40%',
@@ -53,7 +51,7 @@ function FlashcardBack (props) {
           justifyContent: 'space-around',
           flexDirection: 'column',
           cursor: 'pointer',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
         onClick={props.onClick}
       >
@@ -61,7 +59,7 @@ function FlashcardBack (props) {
         <Typography variant="h5" component="h5">
           {word.lemma}
         </Typography>
-        <div className='flashcard-ctas'>
+        <div className="flashcard-ctas">
           <Button
             color="error"
             variant="contained"
@@ -80,7 +78,7 @@ function FlashcardBack (props) {
           </Button>
         </div>
       </Paper>
-    </div >
+    </div>
   )
 }
 

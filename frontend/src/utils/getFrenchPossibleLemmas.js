@@ -17,16 +17,16 @@ const adjectiveSingleMasculine = {
   îche: ['is'],
   es: ['e', ''],
   e: [''],
-  s: ['']
+  s: [''],
 }
 // gras grasse
 
 const nounSingleMasculine = {
   s: '',
-  x: ''
+  x: '',
 }
 
-function getFrenchPossibleLemmas (text) {
+function getFrenchPossibleLemmas(text) {
   const possibleLemmas = []
 
   if (text === 's') {
@@ -57,7 +57,13 @@ function getFrenchPossibleLemmas (text) {
     return [{ lemma: 'ne' }]
   }
 
-  if (text === 'cette' || text === 'ces' || text === 'cett' || text === 'cet' || text === 'c') {
+  if (
+    text === 'cette' ||
+    text === 'ces' ||
+    text === 'cett' ||
+    text === 'cet' ||
+    text === 'c'
+  ) {
     return [{ lemma: 'ce' }]
   }
 
@@ -127,22 +133,31 @@ function getFrenchPossibleLemmas (text) {
 
   possibleLemmas.push({ lemma: text })
 
-  const adjectiveEnding = Object.keys(adjectiveSingleMasculine).find(ending => text.endsWith(ending))
+  const adjectiveEnding = Object.keys(adjectiveSingleMasculine).find((ending) =>
+    text.endsWith(ending)
+  )
   if (adjectiveEnding && text.length > 2) {
-    const singleMasculineEndings = adjectiveSingleMasculine[adjectiveEnding] || []
-    singleMasculineEndings.forEach(singleMasculineEnding => {
+    const singleMasculineEndings =
+      adjectiveSingleMasculine[adjectiveEnding] || []
+    singleMasculineEndings.forEach((singleMasculineEnding) => {
       possibleLemmas.push({
-        lemma: text.substring(0, text.length - adjectiveEnding.length) + singleMasculineEnding,
-        partOfSpeech: 'adj'
+        lemma:
+          text.substring(0, text.length - adjectiveEnding.length) +
+          singleMasculineEnding,
+        partOfSpeech: 'adj',
       })
     })
   }
 
-  const nounEnding = Object.keys(nounSingleMasculine).find(ending => text.endsWith(ending))
+  const nounEnding = Object.keys(nounSingleMasculine).find((ending) =>
+    text.endsWith(ending)
+  )
   if (nounEnding && text.length > 2) {
     possibleLemmas.push({
-      lemma: text.substring(0, text.length - nounEnding.length) + nounSingleMasculine[nounEnding],
-      partOfSpeech: 'n'
+      lemma:
+        text.substring(0, text.length - nounEnding.length) +
+        nounSingleMasculine[nounEnding],
+      partOfSpeech: 'n',
     })
   }
 

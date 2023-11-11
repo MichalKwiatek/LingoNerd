@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-function getNumberDisplay (number) {
+function getNumberDisplay(number) {
   const positive = Math.abs(number)
 
   if (positive === 0) {
@@ -14,16 +14,16 @@ function getNumberDisplay (number) {
   return positive
 }
 
-function secondsToHms (d) {
+function secondsToHms(d) {
   const positive = Math.abs(d)
 
   const h = Math.floor(positive / 3600)
-  const m = Math.floor(positive % 3600 / 60)
-  const s = Math.floor(positive % 3600 % 60)
+  const m = Math.floor((positive % 3600) / 60)
+  const s = Math.floor((positive % 3600) % 60)
   const ms = (positive % 1).toFixed(2).split('.')[1]
 
   return (
-    ((d < 0) ? '-' : '') +
+    (d < 0 ? '-' : '') +
     getNumberDisplay(h) +
     ':' +
     getNumberDisplay(m) +
@@ -34,7 +34,7 @@ function secondsToHms (d) {
   )
 }
 
-function parseTimeDisplayToTime (display) {
+function parseTimeDisplayToTime(display) {
   try {
     const parts = display.split(':')
 
@@ -55,7 +55,7 @@ function parseTimeDisplayToTime (display) {
   }
 }
 
-function TimeInput (props) {
+function TimeInput(props) {
   const [timeLocal, setTimeLocal] = useState(secondsToHms(props.time))
 
   useEffect(() => {
@@ -68,20 +68,23 @@ function TimeInput (props) {
     if (newTime === null) {
       setTimeLocal(secondsToHms(props.time))
     } else {
-      const cleanTime = Math.min(Math.max(newTime, props.minTime || -1000000000), props.maxTime || 1000000000)
+      const cleanTime = Math.min(
+        Math.max(newTime, props.minTime || -1000000000),
+        props.maxTime || 1000000000
+      )
       props.setTime(cleanTime)
     }
   }
 
-  return (
-    props.editable
-      ? <input
-        style={props.style}
-        value={timeLocal}
-        onChange={event => setTimeLocal(event.target.value)}
-        onBlur={onBlur}
-      />
-      : <div>{timeLocal}</div>
+  return props.editable ? (
+    <input
+      style={props.style}
+      value={timeLocal}
+      onChange={(event) => setTimeLocal(event.target.value)}
+      onBlur={onBlur}
+    />
+  ) : (
+    <div>{timeLocal}</div>
   )
 }
 

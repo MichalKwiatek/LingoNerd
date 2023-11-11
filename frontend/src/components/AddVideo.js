@@ -37,10 +37,10 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4
+  p: 4,
 }
 
-function AddVideo () {
+function AddVideo() {
   const isMobile = useMediaQuery('(max-width:768px)')
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -66,7 +66,7 @@ function AddVideo () {
 
   const onAddVideo = () => {
     const id = uuidv4()
-    Auth.currentSession().then(data => {
+    Auth.currentSession().then((data) => {
       const token = data.getIdToken().getJwtToken()
 
       dispatch(addVideo(id, title, link, language, onSuccess, onFailure, token))
@@ -89,15 +89,23 @@ function AddVideo () {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Creating the video failed
           </Typography>
-          <Button variant="contained" onClick={() => setIsFailureModalOpen(false)}>
+          <Button
+            variant="contained"
+            onClick={() => setIsFailureModalOpen(false)}
+          >
             Close
           </Button>
         </Box>
       </Modal>
 
-      <Typography id="modal-modal-title" variant="h5" component="h2" style={{ marginTop: 15 }}>
+      <Typography
+        id="modal-modal-title"
+        variant="h5"
+        component="h2"
+        style={{ marginTop: 15 }}
+      >
         Add a YouTube video:
-          </Typography>
+      </Typography>
       {/* <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
@@ -107,7 +115,14 @@ function AddVideo () {
       >
         {languages.map(lang => <MenuItem key={lang.id} value={lang.id}>{lang.label}</MenuItem>)}
       </Select> */}
-      <div style={{ marginBottom: 20, display: 'flex', flexDirection: 'row', marginTop: 20 }}>
+      <div
+        style={{
+          marginBottom: 20,
+          display: 'flex',
+          flexDirection: 'row',
+          marginTop: 20,
+        }}
+      >
         <TextField
           label="Title"
           variant="outlined"
@@ -116,7 +131,14 @@ function AddVideo () {
           type="text"
         />
       </div>
-      <div style={{ marginBottom: 20, display: 'flex', flexDirection: 'row', marginTop: 20 }}>
+      <div
+        style={{
+          marginBottom: 20,
+          display: 'flex',
+          flexDirection: 'row',
+          marginTop: 20,
+        }}
+      >
         <TextField
           label="Youtube video link"
           variant="outlined"
@@ -129,17 +151,19 @@ function AddVideo () {
           <ClearIcon />
         </Button>
       </div>
-      {link && <ReactPlayer
-        url={link}
-        controls={true}
-        config={{
-          youtube: {
-            playerVars: { autoplay: 1, cc_load_policy: 1 }
-          }
-        }}
-        width={isMobile ? '100%' : 1000}
-        height={isMobile ? 270 : 600}
-      />}
+      {link && (
+        <ReactPlayer
+          url={link}
+          controls={true}
+          config={{
+            youtube: {
+              playerVars: { autoplay: 1, cc_load_policy: 1 },
+            },
+          }}
+          width={isMobile ? '100%' : 1000}
+          height={isMobile ? 270 : 600}
+        />
+      )}
 
       <Button
         variant="contained"

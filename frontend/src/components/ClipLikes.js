@@ -10,7 +10,7 @@ import { likeClip } from '../Redux/Video/actions'
 import AccountNeededModal from './AccountNeededModal'
 import { getIsAuthorized } from '../Redux/User/selectors'
 
-function ClipLikes (props) {
+function ClipLikes(props) {
   const dispatch = useDispatch()
 
   const isAuthorized = useSelector(getIsAuthorized)
@@ -24,11 +24,13 @@ function ClipLikes (props) {
       return
     }
 
-    Auth.currentSession().then(data => {
+    Auth.currentSession().then((data) => {
       const token = data.getIdToken().getJwtToken()
 
       const newValue = like === 1 ? 0 : 1
-      dispatch(likeClip(props.videoId, newValue, props.wordId, props.contextId, token))
+      dispatch(
+        likeClip(props.videoId, newValue, props.wordId, props.contextId, token)
+      )
     })
   }
 
@@ -38,11 +40,13 @@ function ClipLikes (props) {
       return
     }
 
-    Auth.currentSession().then(data => {
+    Auth.currentSession().then((data) => {
       const token = data.getIdToken().getJwtToken()
 
       const newValue = like === -1 ? 0 : -1
-      dispatch(likeClip(props.videoId, newValue, props.wordId, props.contextId, token))
+      dispatch(
+        likeClip(props.videoId, newValue, props.wordId, props.contextId, token)
+      )
     })
   }
 
@@ -50,24 +54,29 @@ function ClipLikes (props) {
     <div
       style={{
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
       }}
     >
-      <AccountNeededModal isModalOpen={isForbiddenModalOpen} setIsModalOpen={setIsForbiddenModalOpen} />
+      <AccountNeededModal
+        isModalOpen={isForbiddenModalOpen}
+        setIsModalOpen={setIsForbiddenModalOpen}
+      />
       <Typography
         style={{
           marginRight: 10,
-          fontSize: 20
+          fontSize: 20,
         }}
       >
         Rate clip:
       </Typography>
-      <div style={{
-        width: 80,
-        border: '2px solid #777',
-        borderRadius: 20,
-        padding: '0px 10px'
-      }}>
+      <div
+        style={{
+          width: 80,
+          border: '2px solid #777',
+          borderRadius: 20,
+          padding: '0px 10px',
+        }}
+      >
         <IconButton onClick={onLike}>
           <ThumbUpIcon sx={like === 1 ? { fill: 'green' } : {}} />
         </IconButton>

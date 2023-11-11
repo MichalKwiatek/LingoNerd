@@ -13,7 +13,7 @@ export const getVideoContexts = (id) => (state) => {
     return []
   }
 
-  return videoContexts[id].map(contextId => getContext(contextId)(state))
+  return videoContexts[id].map((contextId) => getContext(contextId)(state))
 }
 
 export const getVideoContextsWithTranslations = (id) => (state) => {
@@ -24,7 +24,9 @@ export const getVideoContextsWithTranslations = (id) => (state) => {
 
   return contexts.map((c) => ({
     ...c,
-    translations: (contextTranslations[c.id] || []).map(id => translations[id])
+    translations: (contextTranslations[c.id] || []).map(
+      (id) => translations[id]
+    ),
   }))
 }
 
@@ -34,12 +36,16 @@ export const getWordContexts = (wordId) => (state) => {
   const { contexts } = state[contextModuleName]
 
   const sortedTranslations = (wordTranslations[wordId] || [])
-    .map(id => translations[id])
+    .map((id) => translations[id])
     .sort((a, b) => parseFloat(b.strength || 0) - parseFloat(a.strength || 0))
 
   return sortedTranslations
-    .filter((obj, index) => sortedTranslations.findIndex((item) => item.videoId === obj.videoId) === index)
-    .map(t => contexts[t.contextId])
+    .filter(
+      (obj, index) =>
+        sortedTranslations.findIndex((item) => item.videoId === obj.videoId) ===
+        index
+    )
+    .map((t) => contexts[t.contextId])
 }
 
 export const getAreContextsForWordLoaded = (wordId) => (state) => {

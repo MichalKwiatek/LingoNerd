@@ -10,7 +10,7 @@ import { setWordAsSeen } from '../Redux/LearningHistory/actions'
 import { getAreContextsForWordLoaded } from '../Redux/Context/selectors'
 import { fetchContexts } from '../Redux/Context/actions'
 
-function DailyFlashcards () {
+function DailyFlashcards() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -40,7 +40,7 @@ function DailyFlashcards () {
   useEffect(() => {
     if (currentUserId) {
       mixpanel.track('DAILY_FLASHCARDS_SHOWN', {
-        userId: currentUserId
+        userId: currentUserId,
       })
     }
   }, [currentUserId])
@@ -49,10 +49,10 @@ function DailyFlashcards () {
     return null
   }
 
-  function onGoNext () {
+  function onGoNext() {
     dispatch(setWordAsSeen(flashcardId))
 
-    const newQueue = wordsQueue.filter(wordId => wordId !== flashcardId)
+    const newQueue = wordsQueue.filter((wordId) => wordId !== flashcardId)
 
     if (newQueue.length === 0) {
       navigate('/')

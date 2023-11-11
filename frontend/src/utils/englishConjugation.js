@@ -1,680 +1,680 @@
 const englishConjugation = {
   abide: {
     pastSimple: 'abode',
-    pastParticiple: 'abode'
+    pastParticiple: 'abode',
   },
   arise: {
     pastSimple: 'arose',
-    pastParticiple: 'arisen'
+    pastParticiple: 'arisen',
   },
   awake: {
     pastSimple: 'awoke',
-    pastParticiple: 'awoken'
+    pastParticiple: 'awoken',
   },
   be: {
     pastSimple: 'was',
-    pastParticiple: 'been'
+    pastParticiple: 'been',
   },
   bear: {
     pastSimple: 'bore',
-    pastParticiple: 'born'
+    pastParticiple: 'born',
   },
   beat: {
     pastSimple: 'beat',
-    pastParticiple: 'beaten'
+    pastParticiple: 'beaten',
   },
   become: {
     pastSimple: 'became',
-    pastParticiple: 'become'
+    pastParticiple: 'become',
   },
   begin: {
     pastSimple: 'began',
-    pastParticiple: 'begun'
+    pastParticiple: 'begun',
   },
   bend: {
     pastSimple: 'bent',
-    pastParticiple: 'bent'
+    pastParticiple: 'bent',
   },
   bet: {
     pastSimple: 'bet',
-    pastParticiple: 'bet'
+    pastParticiple: 'bet',
   },
   bid: {
     pastSimple: 'bid',
-    pastParticiple: 'bid'
+    pastParticiple: 'bid',
   },
   bite: {
     pastSimple: 'bit',
-    pastParticiple: 'bitten'
+    pastParticiple: 'bitten',
   },
   bleed: {
     pastSimple: 'bled',
-    pastParticiple: 'bled'
+    pastParticiple: 'bled',
   },
   blow: {
     pastSimple: 'blew',
-    pastParticiple: 'blown'
+    pastParticiple: 'blown',
   },
   break: {
     pastSimple: 'broke',
-    pastParticiple: 'broken'
+    pastParticiple: 'broken',
   },
   bring: {
     pastSimple: 'brought',
-    pastParticiple: 'brought'
+    pastParticiple: 'brought',
   },
   broadcast: {
     pastSimple: 'broadcast',
-    pastParticiple: 'broadcast'
+    pastParticiple: 'broadcast',
   },
   build: {
     pastSimple: 'built',
-    pastParticiple: 'built'
+    pastParticiple: 'built',
   },
   burn: {
     pastSimple: 'burnt',
-    pastParticiple: 'burnt'
+    pastParticiple: 'burnt',
   },
   burst: {
     pastSimple: 'burst',
-    pastParticiple: 'burst'
+    pastParticiple: 'burst',
   },
   buy: {
     pastSimple: 'bought',
-    pastParticiple: 'bought'
+    pastParticiple: 'bought',
   },
   can: {
     pastSimple: 'could',
-    pastParticiple: 'could'
+    pastParticiple: 'could',
   },
   cast: {
     pastSimple: 'cast',
-    pastParticiple: 'cast'
+    pastParticiple: 'cast',
   },
   catch: {
     pastSimple: 'caught',
-    pastParticiple: 'caught'
+    pastParticiple: 'caught',
   },
   choose: {
     pastSimple: 'chose',
-    pastParticiple: 'chosen'
+    pastParticiple: 'chosen',
   },
   cling: {
     pastSimple: 'clung',
-    pastParticiple: 'clung'
+    pastParticiple: 'clung',
   },
   come: {
     pastSimple: 'came',
-    pastParticiple: 'come'
+    pastParticiple: 'come',
   },
   cost: {
     pastSimple: 'cost',
-    pastParticiple: 'cost'
+    pastParticiple: 'cost',
   },
   creep: {
     pastSimple: 'crept',
-    pastParticiple: 'crept'
+    pastParticiple: 'crept',
   },
   cut: {
     pastSimple: 'cut',
-    pastParticiple: 'cut'
+    pastParticiple: 'cut',
   },
   deal: {
     pastSimple: 'dealt',
-    pastParticiple: 'dealt'
+    pastParticiple: 'dealt',
   },
   dig: {
     pastSimple: 'dug',
-    pastParticiple: 'dug'
+    pastParticiple: 'dug',
   },
   dive: {
     pastSimple: 'dived',
-    pastParticiple: 'dived'
+    pastParticiple: 'dived',
   },
   do: {
     pastSimple: 'did',
-    pastParticiple: 'done'
+    pastParticiple: 'done',
   },
   draw: {
     pastSimple: 'drew',
-    pastParticiple: 'drawn'
+    pastParticiple: 'drawn',
   },
   dream: {
     pastSimple: 'dreamt',
-    pastParticiple: 'dreamt'
+    pastParticiple: 'dreamt',
   },
   drink: {
     pastSimple: 'drank',
-    pastParticiple: 'drunk'
+    pastParticiple: 'drunk',
   },
   drive: {
     pastSimple: 'drove',
-    pastParticiple: 'driven'
+    pastParticiple: 'driven',
   },
   dwell: {
     pastSimple: 'dwelt',
-    pastParticiple: 'dwelt'
+    pastParticiple: 'dwelt',
   },
   eat: {
     pastSimple: 'ate',
-    pastParticiple: 'eaten'
+    pastParticiple: 'eaten',
   },
   fall: {
     pastSimple: 'fell',
-    pastParticiple: 'fallen'
+    pastParticiple: 'fallen',
   },
   feed: {
     pastSimple: 'fed',
-    pastParticiple: 'fed'
+    pastParticiple: 'fed',
   },
   feel: {
     pastSimple: 'felt',
-    pastParticiple: 'felt'
+    pastParticiple: 'felt',
   },
   fight: {
     pastSimple: 'fought',
-    pastParticiple: 'fought'
+    pastParticiple: 'fought',
   },
   find: {
     pastSimple: 'found',
-    pastParticiple: 'found'
+    pastParticiple: 'found',
   },
   flee: {
     pastSimple: 'fled',
-    pastParticiple: 'fled'
+    pastParticiple: 'fled',
   },
   fling: {
     pastSimple: 'flung',
-    pastParticiple: 'flung'
+    pastParticiple: 'flung',
   },
   fly: {
     pastSimple: 'flew',
-    pastParticiple: 'flown'
+    pastParticiple: 'flown',
   },
   forbid: {
     pastSimple: 'forbade',
-    pastParticiple: 'forbidden'
+    pastParticiple: 'forbidden',
   },
   forecast: {
     pastSimple: 'forecast',
-    pastParticiple: 'forecast'
+    pastParticiple: 'forecast',
   },
   foresee: {
     pastSimple: 'foresaw',
-    pastParticiple: 'foreseen'
+    pastParticiple: 'foreseen',
   },
   forget: {
     pastSimple: 'forgot',
-    pastParticiple: 'forgotten'
+    pastParticiple: 'forgotten',
   },
   forgive: {
     pastSimple: 'forgave',
-    pastParticiple: 'forgiven'
+    pastParticiple: 'forgiven',
   },
   forsake: {
     pastSimple: 'forsook',
-    pastParticiple: 'forsaken'
+    pastParticiple: 'forsaken',
   },
   freeze: {
     pastSimple: 'froze',
-    pastParticiple: 'frozen'
+    pastParticiple: 'frozen',
   },
   get: {
     pastSimple: 'got',
-    pastParticiple: 'gotten'
+    pastParticiple: 'gotten',
   },
   give: {
     pastSimple: 'gave',
-    pastParticiple: 'given'
+    pastParticiple: 'given',
   },
   go: {
     pastSimple: 'went',
-    pastParticiple: 'gone'
+    pastParticiple: 'gone',
   },
   grind: {
     pastSimple: 'ground',
-    pastParticiple: 'ground'
+    pastParticiple: 'ground',
   },
   grow: {
     pastSimple: 'grew',
-    pastParticiple: 'grown'
+    pastParticiple: 'grown',
   },
   hang: {
     pastSimple: 'hung',
-    pastParticiple: 'hung'
+    pastParticiple: 'hung',
   },
   have: {
     pastSimple: 'had',
-    pastParticiple: 'had'
+    pastParticiple: 'had',
   },
   hear: {
     pastSimple: 'heard',
-    pastParticiple: 'heard'
+    pastParticiple: 'heard',
   },
   hide: {
     pastSimple: 'hid',
-    pastParticiple: 'hidden'
+    pastParticiple: 'hidden',
   },
   hit: {
     pastSimple: 'hit',
-    pastParticiple: 'hit'
+    pastParticiple: 'hit',
   },
   hold: {
     pastSimple: 'held',
-    pastParticiple: 'held'
+    pastParticiple: 'held',
   },
   hurt: {
     pastSimple: 'hurt',
-    pastParticiple: 'hurt'
+    pastParticiple: 'hurt',
   },
   keep: {
     pastSimple: 'kept',
-    pastParticiple: 'kept'
+    pastParticiple: 'kept',
   },
   kneel: {
     pastSimple: 'knelt',
-    pastParticiple: 'knelt'
+    pastParticiple: 'knelt',
   },
   know: {
     pastSimple: 'knew',
-    pastParticiple: 'known'
+    pastParticiple: 'known',
   },
   lay: {
     pastSimple: 'laid',
-    pastParticiple: 'laid'
+    pastParticiple: 'laid',
   },
   lead: {
     pastSimple: 'led',
-    pastParticiple: 'led'
+    pastParticiple: 'led',
   },
   lean: {
     pastSimple: 'leant',
-    pastParticiple: 'leant'
+    pastParticiple: 'leant',
   },
   leap: {
     pastSimple: 'leapt',
-    pastParticiple: 'leapt'
+    pastParticiple: 'leapt',
   },
   learn: {
     pastSimple: 'learnt',
-    pastParticiple: 'learnt'
+    pastParticiple: 'learnt',
   },
   leave: {
     pastSimple: 'left',
-    pastParticiple: 'left'
+    pastParticiple: 'left',
   },
   lend: {
     pastSimple: 'lent',
-    pastParticiple: 'lent'
+    pastParticiple: 'lent',
   },
   let: {
     pastSimple: 'let',
-    pastParticiple: 'let'
+    pastParticiple: 'let',
   },
   lie: {
     pastSimple: 'lay',
-    pastParticiple: 'lain'
+    pastParticiple: 'lain',
   },
   light: {
     pastSimple: 'lit',
-    pastParticiple: 'lit'
+    pastParticiple: 'lit',
   },
   lose: {
     pastSimple: 'lost',
-    pastParticiple: 'lost'
+    pastParticiple: 'lost',
   },
   make: {
     pastSimple: 'made',
-    pastParticiple: 'made'
+    pastParticiple: 'made',
   },
   mean: {
     pastSimple: 'meant',
-    pastParticiple: 'meant'
+    pastParticiple: 'meant',
   },
   meet: {
     pastSimple: 'met',
-    pastParticiple: 'met'
+    pastParticiple: 'met',
   },
   mow: {
     pastSimple: 'mowed',
-    pastParticiple: 'mowed'
+    pastParticiple: 'mowed',
   },
   offset: {
     pastSimple: 'offset',
-    pastParticiple: 'offset'
+    pastParticiple: 'offset',
   },
   overcome: {
     pastSimple: 'overcame',
-    pastParticiple: 'overcome'
+    pastParticiple: 'overcome',
   },
   partake: {
     pastSimple: 'partook',
-    pastParticiple: 'partaken'
+    pastParticiple: 'partaken',
   },
   pay: {
     pastSimple: 'paid',
-    pastParticiple: 'paid'
+    pastParticiple: 'paid',
   },
   plead: {
     pastSimple: 'pled',
-    pastParticiple: 'pled'
+    pastParticiple: 'pled',
   },
   preset: {
     pastSimple: 'preset',
-    pastParticiple: 'preset'
+    pastParticiple: 'preset',
   },
   prove: {
     pastSimple: 'proved',
-    pastParticiple: 'proven'
+    pastParticiple: 'proven',
   },
   put: {
     pastSimple: 'put',
-    pastParticiple: 'put'
+    pastParticiple: 'put',
   },
   quit: {
     pastSimple: 'quit',
-    pastParticiple: 'quit'
+    pastParticiple: 'quit',
   },
   read: {
     pastSimple: 'read',
-    pastParticiple: 'read'
+    pastParticiple: 'read',
   },
   relay: {
     pastSimple: 'relaid',
-    pastParticiple: 'relaid'
+    pastParticiple: 'relaid',
   },
   rend: {
     pastSimple: 'rent',
-    pastParticiple: 'rent'
+    pastParticiple: 'rent',
   },
   rid: {
     pastSimple: 'rid',
-    pastParticiple: 'rid'
+    pastParticiple: 'rid',
   },
   ring: {
     pastSimple: 'rang',
-    pastParticiple: 'rung'
+    pastParticiple: 'rung',
   },
   rise: {
     pastSimple: 'rose',
-    pastParticiple: 'risen'
+    pastParticiple: 'risen',
   },
   run: {
     pastSimple: 'ran',
-    pastParticiple: 'run'
+    pastParticiple: 'run',
   },
   saw: {
     pastSimple: 'saw',
-    pastParticiple: 'sawn'
+    pastParticiple: 'sawn',
   },
   say: {
     pastSimple: 'said',
-    pastParticiple: 'said'
+    pastParticiple: 'said',
   },
   see: {
     pastSimple: 'saw',
-    pastParticiple: 'seen'
+    pastParticiple: 'seen',
   },
   seek: {
     pastSimple: 'sought',
-    pastParticiple: 'sought'
+    pastParticiple: 'sought',
   },
   sell: {
     pastSimple: 'sold',
-    pastParticiple: 'sold'
+    pastParticiple: 'sold',
   },
   send: {
     pastSimple: 'sent',
-    pastParticiple: 'sent'
+    pastParticiple: 'sent',
   },
   set: {
     pastSimple: 'set',
-    pastParticiple: 'set'
+    pastParticiple: 'set',
   },
   shake: {
     pastSimple: 'shook',
-    pastParticiple: 'shaken'
+    pastParticiple: 'shaken',
   },
   shed: {
     pastSimple: 'shed',
-    pastParticiple: 'shed'
+    pastParticiple: 'shed',
   },
   shine: {
     pastSimple: 'shone',
-    pastParticiple: 'shone'
+    pastParticiple: 'shone',
   },
   shoe: {
     pastSimple: 'shod',
-    pastParticiple: 'shod'
+    pastParticiple: 'shod',
   },
   shoot: {
     pastSimple: 'shot',
-    pastParticiple: 'shot'
+    pastParticiple: 'shot',
   },
   show: {
     pastSimple: 'showed',
-    pastParticiple: 'shown'
+    pastParticiple: 'shown',
   },
   shut: {
     pastSimple: 'shut',
-    pastParticiple: 'shut'
+    pastParticiple: 'shut',
   },
   sing: {
     pastSimple: 'sang',
-    pastParticiple: 'sung'
+    pastParticiple: 'sung',
   },
   sink: {
     pastSimple: 'sank',
-    pastParticiple: 'sunk'
+    pastParticiple: 'sunk',
   },
   sit: {
     pastSimple: 'sat',
-    pastParticiple: 'sat'
+    pastParticiple: 'sat',
   },
   slay: {
     pastSimple: 'slew',
-    pastParticiple: 'slain'
+    pastParticiple: 'slain',
   },
   sleep: {
     pastSimple: 'slept',
-    pastParticiple: 'slept'
+    pastParticiple: 'slept',
   },
   slide: {
     pastSimple: 'slid',
-    pastParticiple: 'slid'
+    pastParticiple: 'slid',
   },
   slit: {
     pastSimple: 'slit',
-    pastParticiple: 'slit'
+    pastParticiple: 'slit',
   },
   smell: {
     pastSimple: 'smelt',
-    pastParticiple: 'smelt'
+    pastParticiple: 'smelt',
   },
   sow: {
     pastSimple: 'sowed',
-    pastParticiple: 'sown'
+    pastParticiple: 'sown',
   },
   speak: {
     pastSimple: 'spoke',
-    pastParticiple: 'spoken'
+    pastParticiple: 'spoken',
   },
   speed: {
     pastSimple: 'sped',
-    pastParticiple: 'sped'
+    pastParticiple: 'sped',
   },
   spell: {
     pastSimple: 'spelt',
-    pastParticiple: 'spelt'
+    pastParticiple: 'spelt',
   },
   spend: {
     pastSimple: 'spent',
-    pastParticiple: 'spent'
+    pastParticiple: 'spent',
   },
   spill: {
     pastSimple: 'spilt',
-    pastParticiple: 'spilt'
+    pastParticiple: 'spilt',
   },
   spin: {
     pastSimple: 'spun',
-    pastParticiple: 'spun'
+    pastParticiple: 'spun',
   },
   spit: {
     pastSimple: 'spat',
-    pastParticiple: 'spat'
+    pastParticiple: 'spat',
   },
   split: {
     pastSimple: 'split',
-    pastParticiple: 'split'
+    pastParticiple: 'split',
   },
   spoil: {
     pastSimple: 'spoilt',
-    pastParticiple: 'spoilt'
+    pastParticiple: 'spoilt',
   },
   spread: {
     pastSimple: 'spread',
-    pastParticiple: 'spread'
+    pastParticiple: 'spread',
   },
   spring: {
     pastSimple: 'sprang',
-    pastParticiple: 'sprung'
+    pastParticiple: 'sprung',
   },
   stand: {
     pastSimple: 'stood',
-    pastParticiple: 'stood'
+    pastParticiple: 'stood',
   },
   steal: {
     pastSimple: 'stole',
-    pastParticiple: 'stolen'
+    pastParticiple: 'stolen',
   },
   stick: {
     pastSimple: 'stuck',
-    pastParticiple: 'stuck'
+    pastParticiple: 'stuck',
   },
   sting: {
     pastSimple: 'stung',
-    pastParticiple: 'stung'
+    pastParticiple: 'stung',
   },
   stink: {
     pastSimple: 'stank',
-    pastParticiple: 'stunk'
+    pastParticiple: 'stunk',
   },
   strew: {
     pastSimple: 'strewed',
-    pastParticiple: 'strewn'
+    pastParticiple: 'strewn',
   },
   strike: {
     pastSimple: 'struck',
-    pastParticiple: 'stricken'
+    pastParticiple: 'stricken',
   },
   strive: {
     pastSimple: 'strove',
-    pastParticiple: 'striven'
+    pastParticiple: 'striven',
   },
   swear: {
     pastSimple: 'swore',
-    pastParticiple: 'sworn'
+    pastParticiple: 'sworn',
   },
   sweat: {
     pastSimple: 'sweated',
-    pastParticiple: 'sweated'
+    pastParticiple: 'sweated',
   },
   sweep: {
     pastSimple: 'swept',
-    pastParticiple: 'swept'
+    pastParticiple: 'swept',
   },
   swell: {
     pastSimple: 'swelled',
-    pastParticiple: 'swollen'
+    pastParticiple: 'swollen',
   },
   swim: {
     pastSimple: 'swam',
-    pastParticiple: 'swum'
+    pastParticiple: 'swum',
   },
   swing: {
     pastSimple: 'swung',
-    pastParticiple: 'swung'
+    pastParticiple: 'swung',
   },
   take: {
     pastSimple: 'took',
-    pastParticiple: 'taken'
+    pastParticiple: 'taken',
   },
   teach: {
     pastSimple: 'taught',
-    pastParticiple: 'taught'
+    pastParticiple: 'taught',
   },
   tear: {
     pastSimple: 'tore',
-    pastParticiple: 'torn'
+    pastParticiple: 'torn',
   },
   tell: {
     pastSimple: 'told',
-    pastParticiple: 'told'
+    pastParticiple: 'told',
   },
   think: {
     pastSimple: 'thought',
-    pastParticiple: 'thought'
+    pastParticiple: 'thought',
   },
   thrive: {
     pastSimple: 'throve',
-    pastParticiple: 'thriven'
+    pastParticiple: 'thriven',
   },
   throw: {
     pastSimple: 'threw',
-    pastParticiple: 'thrown'
+    pastParticiple: 'thrown',
   },
   thrust: {
     pastSimple: 'thrust',
-    pastParticiple: 'thrust'
+    pastParticiple: 'thrust',
   },
   typeset: {
     pastSimple: 'typeset',
-    pastParticiple: 'typeset'
+    pastParticiple: 'typeset',
   },
   undergo: {
     pastSimple: 'underwent',
-    pastParticiple: 'undergone'
+    pastParticiple: 'undergone',
   },
   understand: {
     pastSimple: 'understood',
-    pastParticiple: 'understood'
+    pastParticiple: 'understood',
   },
   wake: {
     pastSimple: 'woke',
-    pastParticiple: 'woken'
+    pastParticiple: 'woken',
   },
   wear: {
     pastSimple: 'wore',
-    pastParticiple: 'worn'
+    pastParticiple: 'worn',
   },
   weep: {
     pastSimple: 'wept',
-    pastParticiple: 'wept'
+    pastParticiple: 'wept',
   },
   wet: {
     pastSimple: 'wet',
-    pastParticiple: 'wet'
+    pastParticiple: 'wet',
   },
   win: {
     pastSimple: 'won',
-    pastParticiple: 'won'
+    pastParticiple: 'won',
   },
   wind: {
     pastSimple: 'wound',
-    pastParticiple: 'wound'
+    pastParticiple: 'wound',
   },
   withdraw: {
     pastSimple: 'withdrew',
-    pastParticiple: 'withdrawn'
+    pastParticiple: 'withdrawn',
   },
   wring: {
     pastSimple: 'wrung',
-    pastParticiple: 'wrung'
+    pastParticiple: 'wrung',
   },
   write: {
     pastSimple: 'wrote',
-    pastParticiple: 'written'
-  }
+    pastParticiple: 'written',
+  },
 }
 
 export default englishConjugation

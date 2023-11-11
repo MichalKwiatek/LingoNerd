@@ -29,12 +29,17 @@ import VideoPage from './components/VideoPage'
 import MyVideosPage from './components/MyVideosPage'
 import LikedVideosPage from './components/LikedVideosPage'
 
-export const AUTH_ROUTES = ['/signup', '/login', '/new-password', '/forgot-password']
+export const AUTH_ROUTES = [
+  '/signup',
+  '/login',
+  '/new-password',
+  '/forgot-password',
+]
 export const CONTENT_ROUTES = ['add-video', 'add-subtitles', 'check-subtitles']
 
 Amplify.configure(awsconfig)
 
-function App () {
+function App() {
   const dispatch = useDispatch()
   const location = useLocation()
 
@@ -44,19 +49,21 @@ function App () {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false)
 
   useEffect(() => {
-    Auth.currentAuthenticatedUser().then((user) => {
-      dispatch(setCurrentUserId(user.attributes['custom:userId']))
-      dispatch(setIsAuthorized(true))
-      initModels()
-    }).catch(err => {
-      const userId = localStorage.getItem('CURRENT_USER_ID') || uuidv4()
+    Auth.currentAuthenticatedUser()
+      .then((user) => {
+        dispatch(setCurrentUserId(user.attributes['custom:userId']))
+        dispatch(setIsAuthorized(true))
+        initModels()
+      })
+      .catch((err) => {
+        const userId = localStorage.getItem('CURRENT_USER_ID') || uuidv4()
 
-      dispatch(setCurrentUserId(userId))
-      initModels()
-    })
+        dispatch(setCurrentUserId(userId))
+        initModels()
+      })
   }, [])
 
-  function initModels () {
+  function initModels() {
     dispatch(fetchWords)
     dispatch(fetchLearningHistory)
   }
@@ -64,7 +71,7 @@ function App () {
   useEffect(() => {
     if (currentUserId) {
       mixpanel.track('APP_LOADED', {
-        userId: currentUserId
+        userId: currentUserId,
       })
     }
   }, [currentUserId])
@@ -73,15 +80,20 @@ function App () {
 
   return (
     <div className="App">
-      {(!isInitialLoadingFinished) && <Loader />}
-      {(!AUTH_ROUTES.includes(location.pathname)) && <WordCounters
-        isSideMenuOpen={isSideMenuOpen}
-        handleDrawerToggle={() => setIsSideMenuOpen(!isSideMenuOpen)}
-      />}
-      {(!AUTH_ROUTES.includes(location.pathname)) && (!CONTENT_ROUTES.includes(route)) && <SideMenu
-        isSideMenuOpen={isSideMenuOpen}
-        onSideMenuClose={() => setIsSideMenuOpen(false)}
-      />}
+      {!isInitialLoadingFinished && <Loader />}
+      {!AUTH_ROUTES.includes(location.pathname) && (
+        <WordCounters
+          isSideMenuOpen={isSideMenuOpen}
+          handleDrawerToggle={() => setIsSideMenuOpen(!isSideMenuOpen)}
+        />
+      )}
+      {!AUTH_ROUTES.includes(location.pathname) &&
+        !CONTENT_ROUTES.includes(route) && (
+          <SideMenu
+            isSideMenuOpen={isSideMenuOpen}
+            onSideMenuClose={() => setIsSideMenuOpen(false)}
+          />
+        )}
       <Routes>
         <Route path="/" element={<NewWordsPresentation />} />
         <Route path="/daily-flashcards" element={<DailyFlashcards />} />
@@ -89,7 +101,10 @@ function App () {
         <Route path="/login" element={<Login />} />
         <Route path="/new-password" element={<NewPassword />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/new-words-presentation" element={<NewWordsPresentation />} />
+        <Route
+          path="/new-words-presentation"
+          element={<NewWordsPresentation />}
+        />
         <Route path="/new-words-learning" element={<NewWordsLearning />} />
         <Route path="/placement" element={<Placement />} />
         <Route path="/add-video" element={<AddVideo />} />

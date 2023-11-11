@@ -1,6 +1,11 @@
 import combineMaps from '../../utils/combineMaps'
 import { RESET_MODELS } from '../selectors'
-import { FETCH_CONTEXTS, GET_CONTEXT_TRANSLATION, FETCH_VIDEO, UPDATE_SUBTITLE } from './constants/actions'
+import {
+  FETCH_CONTEXTS,
+  GET_CONTEXT_TRANSLATION,
+  FETCH_VIDEO,
+  UPDATE_SUBTITLE,
+} from './constants/actions'
 
 const initialState = {
   videoContexts: {},
@@ -8,7 +13,7 @@ const initialState = {
   contextTranslations: {},
   translations: {},
   wordTranslations: {},
-  wordsContextsLoaded: {}
+  wordsContextsLoaded: {},
 }
 
 export default (state = initialState, action) => {
@@ -20,28 +25,39 @@ export default (state = initialState, action) => {
         ...state,
         contexts: { ...state.contexts, ...action.contexts },
         translations: { ...state.translations, ...action.translations },
-        contextTranslations: combineMaps(state.contextTranslations, action.contextTranslations),
+        contextTranslations: combineMaps(
+          state.contextTranslations,
+          action.contextTranslations
+        ),
         videoContexts: combineMaps(state.videoContexts, action.videoContexts),
-        wordTranslations: combineMaps(state.wordTranslations, action.wordTranslations),
+        wordTranslations: combineMaps(
+          state.wordTranslations,
+          action.wordTranslations
+        ),
         wordsContextsLoaded: {
           ...state.wordsContextsLoaded,
-          [action.wordId]: Math.max(state.wordsContextsLoaded[action.wordId] || 0, action.page)
-        }
+          [action.wordId]: Math.max(
+            state.wordsContextsLoaded[action.wordId] || 0,
+            action.page
+          ),
+        },
       }
     case FETCH_VIDEO:
       return {
         ...state,
         contexts: { ...state.contexts, ...action.contexts },
-        videoContexts: combineMaps(state.videoContexts, action.videoContexts)
+        videoContexts: combineMaps(state.videoContexts, action.videoContexts),
       }
     case GET_CONTEXT_TRANSLATION: {
       return {
         ...state,
-        translations: { ...state.translations, [action.translation.id]: action.translation },
-        contextTranslations: combineMaps(
-          state.contextTranslations,
-          { [action.translation.contextId]: [action.translation.id] }
-        )
+        translations: {
+          ...state.translations,
+          [action.translation.id]: action.translation,
+        },
+        contextTranslations: combineMaps(state.contextTranslations, {
+          [action.translation.contextId]: [action.translation.id],
+        }),
       }
     }
 
@@ -52,9 +68,9 @@ export default (state = initialState, action) => {
           ...state.contexts,
           [action.contextId]: {
             ...state.contexts[action.contextId],
-            subtitle: action.text
-          }
-        }
+            subtitle: action.text,
+          },
+        },
       }
 
     default:

@@ -3,7 +3,9 @@ import Button from '@mui/material/Button'
 import VolumeUpIcon from '@mui/icons-material/VolumeUp'
 
 const AudioPlayer = ({ id, buttonVariant = 'contained' }) => {
-  const url = encodeURI(`https://115951336075-audio.s3.eu-west-1.amazonaws.com/ESP/${id}.mp3`)
+  const url = encodeURI(
+    `https://115951336075-audio.s3.eu-west-1.amazonaws.com/ESP/${id}.mp3`
+  )
   const [audio, setAudio] = useState(null)
 
   useEffect(() => {

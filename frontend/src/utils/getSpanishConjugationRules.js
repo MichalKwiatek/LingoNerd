@@ -3,26 +3,41 @@ import conjugationRules from './conjugationRules'
 const verbTypes = {
   IR: 'ir',
   AR: 'ar',
-  ER: 'er'
+  ER: 'er',
 }
 
-const indirectAndDirectPronouns = ['me', 'tela', 'te', 'la', 'lo', 'nos', 'os', 'los', 'las', 'le', 'les', 'se']
+const indirectAndDirectPronouns = [
+  'me',
+  'tela',
+  'te',
+  'la',
+  'lo',
+  'nos',
+  'os',
+  'los',
+  'las',
+  'le',
+  'les',
+  'se',
+]
 
-function conjugator (infinitiveRaw, conjugatedWordRaw) {
+function conjugator(infinitiveRaw, conjugatedWordRaw) {
   const infinitive = infinitiveRaw.toLowerCase()
   const conjugatedWord = conjugatedWordRaw.toLowerCase()
 
   const verbType = infinitive.endsWith('ar')
     ? verbTypes.AR
     : infinitive.endsWith('er')
-      ? verbTypes.ER
-      : verbTypes.IR
+    ? verbTypes.ER
+    : verbTypes.IR
 
   if (infinitive === conjugatedWord) {
-    return [{
-      tense: 'Infinitivo',
-      verbType
-    }]
+    return [
+      {
+        tense: 'Infinitivo',
+        verbType,
+      },
+    ]
   }
 
   const root = infinitive.slice(0, -2)
@@ -41,7 +56,7 @@ function conjugator (infinitiveRaw, conjugatedWordRaw) {
       const conjugationRoot = type === 'ROOT' ? root : infinitive
       if (conjugationRoot + personsRules.all.ending === conjugatedWord) {
         conjugations.push({
-          tense: tenseName
+          tense: tenseName,
         })
       }
     } else {
@@ -52,7 +67,7 @@ function conjugator (infinitiveRaw, conjugatedWordRaw) {
         if (conjugationRoot + ending === conjugatedWord) {
           conjugations.push({
             tense: tenseName,
-            person
+            person,
           })
         }
       }
@@ -62,14 +77,16 @@ function conjugator (infinitiveRaw, conjugatedWordRaw) {
   return conjugations
 }
 
-function getSpanishConjugationRules (infinitive, conjugated) {
+function getSpanishConjugationRules(infinitive, conjugated) {
   const conjugationRules = conjugator(infinitive, conjugated)
 
   if (conjugationRules.length > 0) {
     return conjugationRules
   }
 
-  const pronounEnding = indirectAndDirectPronouns.find(pronoun => conjugated.endsWith(pronoun))
+  const pronounEnding = indirectAndDirectPronouns.find((pronoun) =>
+    conjugated.endsWith(pronoun)
+  )
   if (!pronounEnding) {
     return []
   }

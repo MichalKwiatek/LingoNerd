@@ -10,12 +10,12 @@ import Typography from '@mui/material/Typography'
 
 const LISTBOX_PADDING = 8 // px
 
-function renderRow (props) {
+function renderRow(props) {
   const { data, index, style } = props
   const dataSet = data[index]
   const inlineStyle = {
     ...style,
-    top: style.top + LISTBOX_PADDING
+    top: style.top + LISTBOX_PADDING,
   }
 
   if (dataSet.hasOwnProperty('group')) {
@@ -35,12 +35,12 @@ function renderRow (props) {
 
 const OuterElementContext = React.createContext({})
 
-const OuterElementType = React.forwardRef(function ListContainer (props, ref) {
+const OuterElementType = React.forwardRef(function ListContainer(props, ref) {
   const outerProps = React.useContext(OuterElementContext)
   return <div ref={ref} {...props} {...outerProps} />
 })
 
-function useResetCache (data) {
+function useResetCache(data) {
   const ref = React.useRef(null)
   React.useEffect(() => {
     if (ref.current != null) {
@@ -51,61 +51,63 @@ function useResetCache (data) {
 }
 
 // Adapter for react-window
-const ListboxComponent = React.forwardRef(function ListboxComponent (props, ref) {
-  const { children, ...other } = props
-  const itemData = []
-  children.forEach((item) => {
-    itemData.push(item)
-    itemData.push(...(item.children || []))
-  })
+const ListboxComponent = React.forwardRef(
+  function ListboxComponent(props, ref) {
+    const { children, ...other } = props
+    const itemData = []
+    children.forEach((item) => {
+      itemData.push(item)
+      itemData.push(...(item.children || []))
+    })
 
-  const theme = useTheme()
-  const smUp = useMediaQuery(theme.breakpoints.up('sm'), {
-    noSsr: true
-  })
-  const itemCount = itemData.length
-  const itemSize = smUp ? 36 : 48
+    const theme = useTheme()
+    const smUp = useMediaQuery(theme.breakpoints.up('sm'), {
+      noSsr: true,
+    })
+    const itemCount = itemData.length
+    const itemSize = smUp ? 36 : 48
 
-  const getChildSize = (child) => {
-    if (child.hasOwnProperty('group')) {
-      return 48
+    const getChildSize = (child) => {
+      if (child.hasOwnProperty('group')) {
+        return 48
+      }
+
+      return itemSize
     }
 
-    return itemSize
-  }
-
-  const getHeight = () => {
-    if (itemCount > 8) {
-      return 8 * itemSize
+    const getHeight = () => {
+      if (itemCount > 8) {
+        return 8 * itemSize
+      }
+      return itemData.map(getChildSize).reduce((a, b) => a + b, 0)
     }
-    return itemData.map(getChildSize).reduce((a, b) => a + b, 0)
+
+    const gridRef = useResetCache(itemCount)
+
+    return (
+      <div ref={ref}>
+        <OuterElementContext.Provider value={other}>
+          <VariableSizeList
+            itemData={itemData}
+            height={getHeight() + 2 * LISTBOX_PADDING}
+            width="100%"
+            ref={gridRef}
+            outerElementType={OuterElementType}
+            innerElementType="ul"
+            itemSize={(index) => getChildSize(itemData[index])}
+            overscanCount={5}
+            itemCount={itemCount}
+          >
+            {renderRow}
+          </VariableSizeList>
+        </OuterElementContext.Provider>
+      </div>
+    )
   }
-
-  const gridRef = useResetCache(itemCount)
-
-  return (
-    <div ref={ref}>
-      <OuterElementContext.Provider value={other}>
-        <VariableSizeList
-          itemData={itemData}
-          height={getHeight() + 2 * LISTBOX_PADDING}
-          width="100%"
-          ref={gridRef}
-          outerElementType={OuterElementType}
-          innerElementType="ul"
-          itemSize={(index) => getChildSize(itemData[index])}
-          overscanCount={5}
-          itemCount={itemCount}
-        >
-          {renderRow}
-        </VariableSizeList>
-      </OuterElementContext.Provider>
-    </div>
-  )
-})
+)
 
 ListboxComponent.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 const StyledPopper = styled(Popper)({
@@ -113,12 +115,12 @@ const StyledPopper = styled(Popper)({
     boxSizing: 'border-box',
     '& ul': {
       padding: 0,
-      margin: 0
-    }
-  }
+      margin: 0,
+    },
+  },
 })
 
-export default function VirtaulizedAutocomplete (props) {
+export default function VirtaulizedAutocomplete(props) {
   return (
     <Autocomplete
       id="virtualize-demo"

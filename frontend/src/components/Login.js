@@ -15,7 +15,7 @@ import { Auth } from 'aws-amplify'
 import * as Sentry from '@sentry/react'
 import { resetModels } from '../Redux/selectors'
 
-function Login () {
+function Login() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -28,15 +28,15 @@ function Login () {
     mixpanel.track('SIGN_IN_OPENED')
   }, [])
 
-  function onEmailChange (event) {
+  function onEmailChange(event) {
     setEmail(event.target.value)
   }
 
-  function onPasswordChange (event) {
+  function onPasswordChange(event) {
     setPassword(event.target.value)
   }
 
-  async function onButtonClick () {
+  async function onButtonClick() {
     mixpanel.track('SIGN_IN_BUTTON_CLICKED')
 
     setEmailError(null)
@@ -54,7 +54,9 @@ function Login () {
       console.error('error signing in', error)
 
       if (error.code === 'UserNotConfirmedException') {
-        setEmailError('Email address not confirmed, please click on the link in the email message')
+        setEmailError(
+          'Email address not confirmed, please click on the link in the email message'
+        )
       } else if (error.code === 'NotAuthorizedException') {
         setEmailError('Incorrect email or password')
       } else {
@@ -65,7 +67,7 @@ function Login () {
   }
 
   useEffect(() => {
-    const keyDownHandler = event => {
+    const keyDownHandler = (event) => {
       if (event.key === 'Enter') {
         event.preventDefault()
         onButtonClick()
@@ -80,20 +82,19 @@ function Login () {
   }, [email, password])
 
   return (
-    <div className='sign-up-page'>
+    <div className="sign-up-page">
       {new URLSearchParams(window.location.search).get('verify') === 'true' && (
         <Alert style={{ marginBottom: 20 }} severity="info">
-          Before logging in click on the verification link sent in an email message (might be in the SPAM folder)
+          Before logging in click on the verification link sent in an email
+          message (might be in the SPAM folder)
         </Alert>
       )}
-      <div className='sign-up-form'>
-        <Link to={'/signup'}>
-          No account yet? Click here to register
-        </Link>
+      <div className="sign-up-form">
+        <Link to={'/signup'}>No account yet? Click here to register</Link>
         <Typography variant="h5" component="h5" style={{ marginTop: 15 }}>
           Log in
-      </Typography>
-        <div className='sign-up-email-input'>
+        </Typography>
+        <div className="sign-up-email-input">
           <TextField
             label="Email"
             variant="outlined"
@@ -122,10 +123,10 @@ function Login () {
             onClick={onButtonClick}
           >
             Log in
-            </Button>
-          <Link to={'/forgot-password'} style={{ marginTop: 15 }} >
+          </Button>
+          <Link to={'/forgot-password'} style={{ marginTop: 15 }}>
             Forgot your password?
-        </Link>
+          </Link>
         </div>
       </div>
     </div>

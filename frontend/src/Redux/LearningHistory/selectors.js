@@ -1,6 +1,9 @@
 import { getCurrentDate, MS_PER_DAY } from '../../utils/dateUtils'
 import { getWordContexts } from '../Context/selectors'
-import { getCurrectUserSelectedLevel, getPreviouslyKnownWords } from '../User/selectors'
+import {
+  getCurrectUserSelectedLevel,
+  getPreviouslyKnownWords,
+} from '../User/selectors'
 import { getWords } from '../Word/selectors'
 import { learningHistoryModuleName } from './constants/actions'
 
@@ -10,9 +13,8 @@ export const getNumberOfWordsInProgress = (state) => {
   const learntWordsIds = getLearntWordIds(state)
 
   return presentedWords
-    .filter(wordId => !knownWordsIds.includes(wordId))
-    .filter(wordId => !learntWordsIds.includes(wordId))
-    .length
+    .filter((wordId) => !knownWordsIds.includes(wordId))
+    .filter((wordId) => !learntWordsIds.includes(wordId)).length
 }
 
 export const getNumberOfLearntWords = (state) => {
@@ -22,8 +24,8 @@ export const getNumberOfLearntWords = (state) => {
 export const getCurrentLevel = (state) => {
   const wordsToLearn = getWordsToLearn(state)
   const words = getWords(state)
-    .filter(w => w.numberOfVideos > 0)
-    .filter(w => w.id !== 'NOT_A_WORD')
+    .filter((w) => w.numberOfVideos > 0)
+    .filter((w) => w.id !== 'NOT_A_WORD')
 
   return words.length - wordsToLearn.length
 }
@@ -33,12 +35,12 @@ export const getWordsToReviewToday = (state) => {
   const currentDate = getCurrentDate()
 
   const wordIds = Object.keys(history)
-  const wordsToReviewToday = wordIds.filter(wordId => {
+  const wordsToReviewToday = wordIds.filter((wordId) => {
     const learntWord = history[wordId]
     const { timesSeen, lastSeenTimestamp } = learntWord
 
     const lastSeenTs = new Date(lastSeenTimestamp).setHours(0, 0, 0, 0)
-    const dayToLearnTS = lastSeenTs + (2 ** timesSeen) * MS_PER_DAY
+    const dayToLearnTS = lastSeenTs + 2 ** timesSeen * MS_PER_DAY
 
     const todayTs = currentDate.setHours(0, 0, 0, 0)
 
@@ -76,14 +78,22 @@ export const getWordNextContexts = (wordId) => (state) => {
   const wordContexts = getWordContexts(wordId)(state)
 
   const wordSeenContexts = getWordSeenContexts(wordId)(state)
-  const wordSeenContextIds = wordSeenContexts.map(seenContext => seenContext.contextId)
+  const wordSeenContextIds = wordSeenContexts.map(
+    (seenContext) => seenContext.contextId
+  )
 
   const sorted = wordContexts.sort((a, b) => {
-    if (wordSeenContextIds.includes(a.id) && !wordSeenContextIds.includes(b.id)) {
+    if (
+      wordSeenContextIds.includes(a.id) &&
+      !wordSeenContextIds.includes(b.id)
+    ) {
       return 1
     }
 
-    if (!wordSeenContextIds.includes(a.id) && wordSeenContextIds.includes(b.id)) {
+    if (
+      !wordSeenContextIds.includes(a.id) &&
+      wordSeenContextIds.includes(b.id)
+    ) {
       return -1
     }
 
@@ -104,16 +114,15 @@ export const getWordsToLearn = (state) => {
 
   const knownWordsIds = getPreviouslyKnownWords(state)
 
-  const words = getWords(state)
-    .filter(w => w.numberOfVideos > 0)
+  const words = getWords(state).filter((w) => w.numberOfVideos > 0)
 
   const selectedLevel = getCurrectUserSelectedLevel(state) || 100000000
 
   return words
     .filter((word) => word.frequency <= selectedLevel)
-    .filter(word => !knownWordsIds.includes(word.id))
-    .filter(word => !learntWordsIds.includes(word.id))
-    .map(word => word.id)
+    .filter((word) => !knownWordsIds.includes(word.id))
+    .filter((word) => !learntWordsIds.includes(word.id))
+    .map((word) => word.id)
 }
 
 export const getPresentedWords = (state) => {
@@ -126,14 +135,12 @@ export const getNotPresentedWordsToLearn = (state) => {
   const wordsToLearn = getWordsToLearn(state)
   const wordsPresented = getPresentedWords(state)
 
-  return wordsToLearn
-    .filter(wordId => !wordsPresented.includes(wordId))
+  return wordsToLearn.filter((wordId) => !wordsPresented.includes(wordId))
 }
 
 export const getPresentedWordsToLearn = (state) => {
   const wordsToLearn = getWordsToLearn(state)
   const wordsPresented = getPresentedWords(state)
 
-  return wordsToLearn
-    .filter(wordId => wordsPresented.includes(wordId))
+  return wordsToLearn.filter((wordId) => wordsPresented.includes(wordId))
 }

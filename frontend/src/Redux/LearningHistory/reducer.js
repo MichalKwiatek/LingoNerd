@@ -1,12 +1,17 @@
 import { RESET_MODELS } from '../selectors'
 import {
-  ADD_TO_HISTORY, FETCH_LEARNING_HISTORY, SET_CONTEXT_AS_SEEN, SET_WORD_AS_LEARNT, SET_WORD_AS_PRESENTED, SET_WORD_AS_SEEN
+  ADD_TO_HISTORY,
+  FETCH_LEARNING_HISTORY,
+  SET_CONTEXT_AS_SEEN,
+  SET_WORD_AS_LEARNT,
+  SET_WORD_AS_PRESENTED,
+  SET_WORD_AS_SEEN,
 } from './constants/actions'
 
 const initialState = {
   history: {},
   isLearningHistoryLoaded: false,
-  wordsPresented: []
+  wordsPresented: [],
 }
 
 export default (state = initialState, action) => {
@@ -18,15 +23,15 @@ export default (state = initialState, action) => {
         ...state,
         history: action.history,
         shownContexts: JSON.parse(localStorage.getItem('shownContexts')) || [],
-        isLearningHistoryLoaded: true
+        isLearningHistoryLoaded: true,
       }
     case SET_WORD_AS_LEARNT:
       return {
         ...state,
         history: {
           ...state.history,
-          [action.learntWord.wordId]: action.learntWord
-        }
+          [action.learntWord.wordId]: action.learntWord,
+        },
       }
     case SET_WORD_AS_SEEN:
       return {
@@ -36,9 +41,9 @@ export default (state = initialState, action) => {
           [action.wordId]: {
             ...state.history[action.wordId],
             timesSeen: action.timesSeen,
-            lastSeenTimestamp: action.timestamp
-          }
-        }
+            lastSeenTimestamp: action.timestamp,
+          },
+        },
       }
     case ADD_TO_HISTORY:
       return {
@@ -46,26 +51,33 @@ export default (state = initialState, action) => {
         history: {
           ...state.history,
           [action.wordId]: [
-            ...state.history[action.wordId] || [],
+            ...(state.history[action.wordId] || []),
             {
               wordId: action.wordId,
               answer: action.answer,
-              timestamp: action.timestamp
-            }]
-        }
+              timestamp: action.timestamp,
+            },
+          ],
+        },
       }
     case SET_CONTEXT_AS_SEEN: {
       const newState = {
         ...state,
-        shownContexts: [...state.shownContexts, { wordId: action.wordId, contextId: action.contextId }]
+        shownContexts: [
+          ...state.shownContexts,
+          { wordId: action.wordId, contextId: action.contextId },
+        ],
       }
-      localStorage.setItem('shownContexts', JSON.stringify(newState.shownContexts))
+      localStorage.setItem(
+        'shownContexts',
+        JSON.stringify(newState.shownContexts)
+      )
       return newState
     }
     case SET_WORD_AS_PRESENTED: {
       const newState = {
         ...state,
-        wordsPresented: [...state.wordsPresented, action.wordId]
+        wordsPresented: [...state.wordsPresented, action.wordId],
       }
       return newState
     }

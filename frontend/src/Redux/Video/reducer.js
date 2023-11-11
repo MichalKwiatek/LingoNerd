@@ -1,7 +1,16 @@
 import { FETCH_VIDEO } from '../Context/constants/actions'
 import { FETCH_LEARNING_HISTORY } from '../LearningHistory/constants/actions'
 import { RESET_MODELS } from '../selectors'
-import { FETCH_MY_VIDEOS, FETCH_VIDEOS, SET_MY_VIDEOS_LOADING, SET_VIDEOS_LOADING, LIKE_VIDEO, LIKE_CLIP, SET_LIKED_VIDEOS_LOADING, FETCH_LIKED_VIDEOS } from './constants/actions'
+import {
+  FETCH_MY_VIDEOS,
+  FETCH_VIDEOS,
+  SET_MY_VIDEOS_LOADING,
+  SET_VIDEOS_LOADING,
+  LIKE_VIDEO,
+  LIKE_CLIP,
+  SET_LIKED_VIDEOS_LOADING,
+  FETCH_LIKED_VIDEOS,
+} from './constants/actions'
 
 const initialState = {
   videos: {},
@@ -19,7 +28,7 @@ const initialState = {
 
   likedVideosPage: null,
   areMoreLikedVideos: true,
-  areLikedVideosLoading: false
+  areLikedVideosLoading: false,
 }
 
 export default (state = initialState, action) => {
@@ -32,7 +41,7 @@ export default (state = initialState, action) => {
         videos: { ...state.videos, ...action.videos },
         videosPage: action.page,
         areMoreVideos: action.areMoreVideos,
-        areVideosLoading: false
+        areVideosLoading: false,
       }
 
     case FETCH_MY_VIDEOS:
@@ -41,12 +50,12 @@ export default (state = initialState, action) => {
         videos: { ...action.videos, ...state.videos },
         myVideosPage: action.page,
         areMoreMyVideos: action.areMoreVideos,
-        areMyVideosLoading: false
+        areMyVideosLoading: false,
       }
     case SET_MY_VIDEOS_LOADING:
       return {
         ...state,
-        areMyVideosLoading: action.areLoading
+        areMyVideosLoading: action.areLoading,
       }
 
     case FETCH_LIKED_VIDEOS:
@@ -55,12 +64,12 @@ export default (state = initialState, action) => {
         videos: { ...action.videos, ...state.videos },
         likedVideosPage: action.page,
         areMoreLikedVideos: action.areMoreVideos,
-        areLikedVideosLoading: false
+        areLikedVideosLoading: false,
       }
     case SET_LIKED_VIDEOS_LOADING:
       return {
         ...state,
-        areLikedVideosLoading: action.areLoading
+        areLikedVideosLoading: action.areLoading,
       }
 
     case FETCH_VIDEO:
@@ -68,13 +77,16 @@ export default (state = initialState, action) => {
         ...state,
         videos: {
           ...state.videos,
-          [action.video.id]: { ...state.videos[action.video.id], ...action.video }
-        }
+          [action.video.id]: {
+            ...state.videos[action.video.id],
+            ...action.video,
+          },
+        },
       }
     case SET_VIDEOS_LOADING:
       return {
         ...state,
-        areVideosLoading: action.areLoading
+        areVideosLoading: action.areLoading,
       }
 
     case LIKE_VIDEO:
@@ -85,9 +97,9 @@ export default (state = initialState, action) => {
           [action.videoId]: {
             videoId: action.videoId,
             value: action.value,
-            timestamp: action.timestamp
-          }
-        }
+            timestamp: action.timestamp,
+          },
+        },
       }
 
     case LIKE_CLIP:
@@ -100,16 +112,16 @@ export default (state = initialState, action) => {
             contextId: action.contextId,
             videoId: action.videoId,
             value: action.value,
-            timestamp: action.timestamp
-          }
-        }
+            timestamp: action.timestamp,
+          },
+        },
       }
 
     case FETCH_LEARNING_HISTORY:
       return {
         ...state,
         clipLikes: action.clipLikes,
-        videoLikes: action.videoLikes
+        videoLikes: action.videoLikes,
       }
     default:
       return state

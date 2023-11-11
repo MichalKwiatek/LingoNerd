@@ -1,7 +1,7 @@
 import getFrenchConjugationRules from './getFrenchConjugationRules'
 import getSpanishConjugationRules from './getSpanishConjugationRules'
 
-function getConjugationRules (infinitiveRaw, conjugatedWordRaw, language) {
+function getConjugationRules(infinitiveRaw, conjugatedWordRaw, language) {
   if (language === 'ESP') {
     return getSpanishConjugationRules(infinitiveRaw, conjugatedWordRaw)
   }

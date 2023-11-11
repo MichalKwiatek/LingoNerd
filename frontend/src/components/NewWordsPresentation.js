@@ -2,11 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import mixpanel from 'mixpanel-browser'
-import { getCurrectUserId, getCurrectUserSelectedLevel } from '../Redux/User/selectors'
+import {
+  getCurrectUserId,
+  getCurrectUserSelectedLevel,
+} from '../Redux/User/selectors'
 import { getIsInitialLoadingFinished } from '../Redux/selectors'
 import Presentation from './Presentation'
 import Context from './Context'
-import { getNotPresentedWordsToLearn, getWordsToReviewToday, getPresentedWordsToLearn } from '../Redux/LearningHistory/selectors'
+import {
+  getNotPresentedWordsToLearn,
+  getWordsToReviewToday,
+  getPresentedWordsToLearn,
+} from '../Redux/LearningHistory/selectors'
 
 import { fetchContexts } from '../Redux/Context/actions'
 import { getAreContextsForWordLoaded } from '../Redux/Context/selectors'
@@ -15,7 +22,7 @@ import { AUTH_ROUTES } from '../App'
 
 const WORDS_SET_TO_LEARN = 3
 
-function NewWordsPresentation () {
+function NewWordsPresentation() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const location = useLocation()
@@ -33,7 +40,11 @@ function NewWordsPresentation () {
   const selectedLevel = useSelector(getCurrectUserSelectedLevel)
 
   useEffect(() => {
-    if (isInitialLoadingFinished && !selectedLevel && !AUTH_ROUTES.includes(location.pathname)) {
+    if (
+      isInitialLoadingFinished &&
+      !selectedLevel &&
+      !AUTH_ROUTES.includes(location.pathname)
+    ) {
       navigate('/placement')
     }
   }, [isInitialLoadingFinished, location.pathname, selectedLevel])
@@ -41,7 +52,12 @@ function NewWordsPresentation () {
   useEffect(() => {
     const lastShownTs = localStorage.getItem('DAILY_FLASHCARDS_SHOWN_TS')
     const wasShownToday = lastShownTs && isToday(parseInt(lastShownTs))
-    if (isInitialLoadingFinished && wordsToReviewToday.length > 0 && selectedLevel && !wasShownToday) {
+    if (
+      isInitialLoadingFinished &&
+      wordsToReviewToday.length > 0 &&
+      selectedLevel &&
+      !wasShownToday
+    ) {
       const currentTs = getCurrentDate().getTime()
       localStorage.setItem('DAILY_FLASHCARDS_SHOWN_TS', currentTs)
 
@@ -65,7 +81,7 @@ function NewWordsPresentation () {
   useEffect(() => {
     if (currentUserId) {
       mixpanel.track('NEW_WORDS_PRESENTATION', {
-        userId: currentUserId
+        userId: currentUserId,
       })
     }
   }, [currentUserId])
@@ -74,11 +90,11 @@ function NewWordsPresentation () {
     return null
   }
 
-  function onAfterPresentation () {
+  function onAfterPresentation() {
     setComponentType('context')
   }
 
-  function onAfterContext () {
+  function onAfterContext() {
     if (presentedWordsToLearn.length >= WORDS_SET_TO_LEARN) {
       navigate('/new-words-learning')
     }
@@ -95,7 +111,7 @@ function NewWordsPresentation () {
     setWordId(newWordsToLearn[newIndex])
   }
 
-  function onKnownWord () {
+  function onKnownWord() {
     const index = newWordsToLearn.indexOf(wordId)
     const newIndex = index + 1
 
@@ -105,16 +121,20 @@ function NewWordsPresentation () {
 
   return (
     <>
-      {componentType === 'presentation' && <>
-        <Presentation
-          id={wordId}
-          onClickNext={onAfterPresentation}
-          onKnownWord={onKnownWord}
-        ></Presentation>
-      </>}
-      {componentType === 'context' && <>
-        <Context wordId={wordId} onGoNext={onAfterContext} />
-      </>}
+      {componentType === 'presentation' && (
+        <>
+          <Presentation
+            id={wordId}
+            onClickNext={onAfterPresentation}
+            onKnownWord={onKnownWord}
+          ></Presentation>
+        </>
+      )}
+      {componentType === 'context' && (
+        <>
+          <Context wordId={wordId} onGoNext={onAfterContext} />
+        </>
+      )}
     </>
   )
 }

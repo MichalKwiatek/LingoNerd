@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import mixpanel from 'mixpanel-browser'
 import { getCurrectUserId } from '../Redux/User/selectors'
 
-function Test (props) {
+function Test(props) {
   const currentUserId = useSelector(getCurrectUserId)
 
   const [flashcardState, setFlashcardState] = useState('front')
@@ -13,7 +13,7 @@ function Test (props) {
   useEffect(() => {
     if (currentUserId) {
       mixpanel.track('TEST_SHOWN', {
-        userId: currentUserId
+        userId: currentUserId,
       })
     }
   }, [currentUserId])
@@ -22,23 +22,27 @@ function Test (props) {
     return null
   }
 
-  function onClickFront () {
+  function onClickFront() {
     setFlashcardState('back')
   }
 
-  function onClickBack () {
+  function onClickBack() {
     setFlashcardState('front')
   }
 
   return (
     <>
-      {flashcardState === 'front' && <FlashcardFront id={props.wordId} onClick={onClickFront} />}
-      {flashcardState === 'back' && <FlashcardBack
-        id={props.wordId}
-        onClick={onClickBack}
-        onCorrectAnswer={props.onCorrectAnswer}
-        onWrongAnswer={props.onWrongAnswer}
-      />}
+      {flashcardState === 'front' && (
+        <FlashcardFront id={props.wordId} onClick={onClickFront} />
+      )}
+      {flashcardState === 'back' && (
+        <FlashcardBack
+          id={props.wordId}
+          onClick={onClickBack}
+          onCorrectAnswer={props.onCorrectAnswer}
+          onWrongAnswer={props.onWrongAnswer}
+        />
+      )}
     </>
   )
 }

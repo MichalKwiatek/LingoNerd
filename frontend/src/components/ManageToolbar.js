@@ -14,7 +14,7 @@ import { fetchLearningHistory } from '../Redux/LearningHistory/actions'
 import { fetchWords } from '../Redux/Word/actions'
 import { getIsAuthorized } from '../Redux/User/selectors'
 
-function ManageToolbar (props) {
+function ManageToolbar(props) {
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const dispatch = useDispatch()
@@ -61,17 +61,25 @@ function ManageToolbar (props) {
         onClose={handleClose}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'left'
+          horizontal: 'left',
         }}
       >
-        <Typography onClick={onChangeLevel} style={{ cursor: 'pointer' }} sx={{ p: 2 }}>Change level</Typography>
-        {isAuthorized && <Typography
-          onClick={onLogOut}
+        <Typography
+          onClick={onChangeLevel}
           style={{ cursor: 'pointer' }}
           sx={{ p: 2 }}
         >
-          Log out
-          </Typography>}
+          Change level
+        </Typography>
+        {isAuthorized && (
+          <Typography
+            onClick={onLogOut}
+            style={{ cursor: 'pointer' }}
+            sx={{ p: 2 }}
+          >
+            Log out
+          </Typography>
+        )}
 
         {!isAuthorized && (
           <>
@@ -81,17 +89,16 @@ function ManageToolbar (props) {
               sx={{ p: 2 }}
             >
               Log in
-          </Typography>
+            </Typography>
             <Typography
               onClick={() => navigate('/signup')}
               style={{ cursor: 'pointer' }}
               sx={{ p: 2 }}
             >
               Register
-          </Typography>
+            </Typography>
           </>
-        )
-        }
+        )}
       </Popover>
     </>
   )

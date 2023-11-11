@@ -15,7 +15,7 @@ const tenses = [
   'Pretérito perfecto simple Indicativo',
   'Presente Subjuntivo',
   'Futuro Subjuntivo',
-  'Pretérito imperfecto Subjuntivo'
+  'Pretérito imperfecto Subjuntivo',
 ]
 
 const persons = {
@@ -24,10 +24,10 @@ const persons = {
   3: 'he/she/it',
   4: 'we',
   5: 'you (plural)',
-  6: 'they'
+  6: 'they',
 }
 
-function AddConjugation (props) {
+function AddConjugation(props) {
   const [tense, setTense] = useState(null)
   const [person, setPerson] = useState(null)
 
@@ -41,14 +41,22 @@ function AddConjugation (props) {
         label="Tense"
         onChange={(event) => setTense(event.target.value)}
       >
-        {tenses.map(id => <MenuItem value={id} key={id}>{id}</MenuItem>)}
+        {tenses.map((id) => (
+          <MenuItem value={id} key={id}>
+            {id}
+          </MenuItem>
+        ))}
       </Select>
       <Select
         value={person}
         label="Person"
         onChange={(event) => setPerson(event.target.value)}
       >
-        {Object.keys(persons).map(id => <MenuItem value={id} key={id}>{persons[id]}</MenuItem>)}
+        {Object.keys(persons).map((id) => (
+          <MenuItem value={id} key={id}>
+            {persons[id]}
+          </MenuItem>
+        ))}
       </Select>
     </div>
   )

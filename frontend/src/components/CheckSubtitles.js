@@ -10,7 +10,11 @@ import Typography from '@mui/material/Typography'
 
 import ReactPlayer from 'react-player'
 import '../styles/add-video.css'
-import { createTranslations, fetchVideo, updateSubtitle } from '../Redux/Context/actions'
+import {
+  createTranslations,
+  fetchVideo,
+  updateSubtitle,
+} from '../Redux/Context/actions'
 import Translation from './Translation'
 import { v4 as uuidv4 } from 'uuid'
 import { getVideo } from '../Redux/Video/selectors'
@@ -26,10 +30,10 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4
+  p: 4,
 }
 
-function CheckSubtitles () {
+function CheckSubtitles() {
   const isMobile = useMediaQuery('(max-width:768px)')
   const dispatch = useDispatch()
   const { videoId } = useParams()
@@ -64,11 +68,15 @@ function CheckSubtitles () {
   const onSuccess = () => {
     const subtitleText = subtitles[subtitlesIndex].subtitle
     const contextsWithSameTextIds = subtitles
-      .filter(s => s.subtitle === subtitleText)
-      .map(s => s.id)
+      .filter((s) => s.subtitle === subtitleText)
+      .map((s) => s.id)
 
-    setSubtitles(subtitles.filter((s, index) => !contextsWithSameTextIds.includes(s.id) ||
-      index <= subtitlesIndex))
+    setSubtitles(
+      subtitles.filter(
+        (s, index) =>
+          !contextsWithSameTextIds.includes(s.id) || index <= subtitlesIndex
+      )
+    )
 
     setSelectedWords([])
   }
@@ -78,53 +86,64 @@ function CheckSubtitles () {
   }
 
   const onUpdateSuccess = (contextId, text) => {
-    setSubtitles(subtitles
-      .map(s => {
+    setSubtitles(
+      subtitles.map((s) => {
         if (s.id === contextId) {
           return {
             ...s,
-            subtitle: text
+            subtitle: text,
           }
         }
 
         return { ...s }
-      }))
+      })
+    )
   }
 
   const updateSubtitleText = (text) => {
-    dispatch(updateSubtitle(subtitles[subtitlesIndex]?.id, text, onUpdateSuccess))
+    dispatch(
+      updateSubtitle(subtitles[subtitlesIndex]?.id, text, onUpdateSuccess)
+    )
   }
 
   const onAddTranslations = () => {
-    if (selectedWords.some(translation => translation.possibleWords.length !== 1)) {
+    if (
+      selectedWords.some(
+        (translation) => translation.possibleWords.length !== 1
+      )
+    ) {
       return
     }
 
     const subtitleText = subtitles[subtitlesIndex].subtitle
     const contextsWithSameTextIds = subtitles
-      .filter(s => s.subtitle === subtitleText)
-      .map(s => s.id)
+      .filter((s) => s.subtitle === subtitleText)
+      .map((s) => s.id)
 
-    const translations = contextsWithSameTextIds.map(contextId =>
-      selectedWords.map(translation => ({
-        id: uuidv4(),
-        videoId: translation.videoId,
-        contextId,
+    const translations = contextsWithSameTextIds
+      .map((contextId) =>
+        selectedWords.map((translation) => ({
+          id: uuidv4(),
+          videoId: translation.videoId,
+          contextId,
 
-        text: translation.text,
-        textStart: translation.textStart,
-        textEnd: translation.textEnd,
+          text: translation.text,
+          textStart: translation.textStart,
+          textEnd: translation.textEnd,
 
-        wordId: translation.possibleWords[0].id,
-        rootWordId: translation.possibleWords[0].rootWordId,
-        flashcardWordId: translation.possibleWords[0].flashcardWordId
-      }))
-    ).flat()
+          wordId: translation.possibleWords[0].id,
+          rootWordId: translation.possibleWords[0].rootWordId,
+          flashcardWordId: translation.possibleWords[0].flashcardWordId,
+        }))
+      )
+      .flat()
 
-    Auth.currentSession().then(data => {
+    Auth.currentSession().then((data) => {
       const token = data.getIdToken().getJwtToken()
 
-      dispatch(createTranslations(translations, [], onSuccess, onFailure, token))
+      dispatch(
+        createTranslations(translations, [], onSuccess, onFailure, token)
+      )
     })
   }
 
@@ -140,28 +159,42 @@ function CheckSubtitles () {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Adding subtitle failed
           </Typography>
-          <Button variant="contained" onClick={() => setIsFailureModalOpen(false)}>
+          <Button
+            variant="contained"
+            onClick={() => setIsFailureModalOpen(false)}
+          >
             Close
           </Button>
         </Box>
       </Modal>
-      <Typography id="modal-modal-title" variant="h5" component="h2" style={{ marginTop: 15 }}>
+      <Typography
+        id="modal-modal-title"
+        variant="h5"
+        component="h2"
+        style={{ marginTop: 15 }}
+      >
         Generate translations:
       </Typography>
 
-      {link && <ReactPlayer
-        url={link}
-        controls={true}
-        config={{
-          youtube: {
-            playerVars: { autoplay: 0, cc_load_policy: 1, cc_lang_pref: 'es-419' }
-          }
-        }}
-        width={isMobile ? '100%' : 1000}
-        height={isMobile ? 270 : 400}
-      />}
+      {link && (
+        <ReactPlayer
+          url={link}
+          controls={true}
+          config={{
+            youtube: {
+              playerVars: {
+                autoplay: 0,
+                cc_load_policy: 1,
+                cc_lang_pref: 'es-419',
+              },
+            },
+          }}
+          width={isMobile ? '100%' : 1000}
+          height={isMobile ? 270 : 400}
+        />
+      )}
 
-      {(subtitles.length > 0) && (
+      {subtitles.length > 0 && (
         <div style={{ marginTop: 20 }}>
           <Translation
             selectedWords={selectedWords}
@@ -197,11 +230,15 @@ function CheckSubtitles () {
           style={{ marginTop: 20, marginBottom: 30 }}
           color="secondary"
           onClick={onAddTranslations}
-          disabled={selectedWords.length === 0 ||
-            selectedWords.some(translation => translation.possibleWords.length !== 1)}
+          disabled={
+            selectedWords.length === 0 ||
+            selectedWords.some(
+              (translation) => translation.possibleWords.length !== 1
+            )
+          }
         >
           Add translations
-      </Button>
+        </Button>
       </div>
     </div>
   )

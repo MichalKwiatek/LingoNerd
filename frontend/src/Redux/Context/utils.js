@@ -1,4 +1,4 @@
-export function parseContext (dbContext) {
+export function parseContext(dbContext) {
   return {
     id: dbContext.id,
     creationTimestamp: dbContext.creation_timestamp,
@@ -8,11 +8,11 @@ export function parseContext (dbContext) {
     subtitle: dbContext.subtitle,
     url: dbContext.url,
     videoId: dbContext.video_id,
-    title: dbContext.title
+    title: dbContext.title,
   }
 }
 
-export function parseTranslation (dbTranslation) {
+export function parseTranslation(dbTranslation) {
   return {
     id: dbTranslation.id,
     contextId: dbTranslation.context_id,
@@ -25,6 +25,6 @@ export function parseTranslation (dbTranslation) {
     wordId: dbTranslation.word_id,
     strength: dbTranslation.strength,
     flashcardWordId: dbTranslation.flashcard_word_id,
-    videoId: dbTranslation.video_id
+    videoId: dbTranslation.video_id,
   }
 }

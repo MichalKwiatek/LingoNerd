@@ -5,7 +5,9 @@ const createWordLabel = (word) => {
 
   const shortTranslation = word.translation
     .split('(')[0]
-    .split(/[,;]+/).slice(0, 2).join(',')
+    .split(/[,;]+/)
+    .slice(0, 2)
+    .join(',')
 
   return `${word.lemma} - ${shortTranslation}`
 }

@@ -14,10 +14,12 @@ import * as Sentry from '@sentry/react'
 import { v4 as uuidv4 } from 'uuid'
 import { getCurrectUserId } from '../Redux/User/selectors'
 
-const TERMS = 'https://www.termsandconditionsgenerator.com/live.php?token=pguQHJYFvasNIwy44EthJaj7FydT9vzY'
-const PRIVACY_POLICY = 'https://docs.google.com/document/d/1Vz2jOO0k2BpxAYssvxCHntbv1MKZeDNguWBc2Z3GJ9g/edit?usp=sharing'
+const TERMS =
+  'https://www.termsandconditionsgenerator.com/live.php?token=pguQHJYFvasNIwy44EthJaj7FydT9vzY'
+const PRIVACY_POLICY =
+  'https://docs.google.com/document/d/1Vz2jOO0k2BpxAYssvxCHntbv1MKZeDNguWBc2Z3GJ9g/edit?usp=sharing'
 
-function SignUp () {
+function SignUp() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -31,15 +33,15 @@ function SignUp () {
     mixpanel.track('SIGN_UP_OPENED')
   }, [])
 
-  function onEmailChange (event) {
+  function onEmailChange(event) {
     setEmail(event.target.value)
   }
 
-  function onPasswordChange (event) {
+  function onPasswordChange(event) {
     setPassword(event.target.value)
   }
 
-  async function onButtonClick () {
+  async function onButtonClick() {
     mixpanel.track('SIGN_UP_BUTTON_CLICKED')
 
     setEmailError(null)
@@ -54,8 +56,8 @@ function SignUp () {
         username: email.trim(),
         password,
         attributes: {
-          'custom:userId': currentUserId || uuidv4()
-        }
+          'custom:userId': currentUserId || uuidv4(),
+        },
         // autoSignIn: { // optional - enables auto sign in after user is confirmed
         //   enabled: true,
         // }
@@ -69,7 +71,9 @@ function SignUp () {
       } else if (error.code === 'UsernameExistsException') {
         setEmailError('Email already used')
       } else if (error.code === 'InvalidPasswordException') {
-        setPasswordError('Password too short (min 8 letters) or without a digit')
+        setPasswordError(
+          'Password too short (min 8 letters) or without a digit'
+        )
       } else {
         Sentry.captureException(error)
         Sentry.captureException(new Error('unhandled Signup error', error))
@@ -78,7 +82,7 @@ function SignUp () {
   }
 
   useEffect(() => {
-    const keyDownHandler = event => {
+    const keyDownHandler = (event) => {
       if (event.key === 'Enter') {
         event.preventDefault()
         onButtonClick()
@@ -93,15 +97,13 @@ function SignUp () {
   }, [email, password, isPolicyAccepted])
 
   return (
-    <div className='sign-up-page'>
-      <div className='sign-up-form'>
-        <Link to={'/login'}>
-          Already have an account? Click here to log in
-        </Link>
+    <div className="sign-up-page">
+      <div className="sign-up-form">
+        <Link to={'/login'}>Already have an account? Click here to log in</Link>
         <Typography variant="h5" component="h5" style={{ marginTop: 15 }}>
           Registration
-      </Typography>
-        <div className='sign-up-email-input'>
+        </Typography>
+        <div className="sign-up-email-input">
           <TextField
             label="Email"
             variant="outlined"
@@ -128,23 +130,33 @@ function SignUp () {
             onChange={(e) => setIsPolicyAccepted(e.target.checked)}
             control={<Checkbox />}
             style={{ marginBottom: isPolicyErrorShown ? 0 : 10 }}
-            label={<>
-              I accept <a href={TERMS}
-                target="_blank" rel="noreferrer"
-              >the Terms of Service</a> and <a href={PRIVACY_POLICY}
-                target="_blank" rel="noreferrer"
-              >the Privacy Policy</a>
-            </>} />
-          {isPolicyErrorShown && <Typography style={{ marginBottom: 10, fontSize: 12, color: 'red' }}>
-            Please accept the Terms of Service and the Privacy Policy
-              </Typography>}
+            label={
+              <>
+                I accept{' '}
+                <a href={TERMS} target="_blank" rel="noreferrer">
+                  the Terms of Service
+                </a>{' '}
+                and{' '}
+                <a href={PRIVACY_POLICY} target="_blank" rel="noreferrer">
+                  the Privacy Policy
+                </a>
+              </>
+            }
+          />
+          {isPolicyErrorShown && (
+            <Typography
+              style={{ marginBottom: 10, fontSize: 12, color: 'red' }}
+            >
+              Please accept the Terms of Service and the Privacy Policy
+            </Typography>
+          )}
           <Button
             variant="contained"
             disabled={email.length === 0}
             onClick={onButtonClick}
           >
             Create an account
-            </Button>
+          </Button>
         </div>
       </div>
     </div>

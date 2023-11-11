@@ -3,28 +3,30 @@ import conjugationRules from './frenchConjugationRules'
 const verbTypes = {
   ER: 'er',
   RE: 're',
-  IR: 'ir'
+  IR: 'ir',
 }
 
-function getVerbType (infinitive) {
+function getVerbType(infinitive) {
   return infinitive.endsWith('re')
     ? verbTypes.RE
     : infinitive.endsWith('er')
-      ? verbTypes.ER
-      : verbTypes.IR
+    ? verbTypes.ER
+    : verbTypes.IR
 }
 
-function getFrenchConjugationRules (infinitiveRaw, conjugatedWordRaw) {
+function getFrenchConjugationRules(infinitiveRaw, conjugatedWordRaw) {
   const infinitive = infinitiveRaw.toLowerCase()
   const conjugatedWord = conjugatedWordRaw.toLowerCase()
 
   const verbType = getVerbType(infinitive)
 
   if (infinitive === conjugatedWord) {
-    return [{
-      tense: 'Infinitivo',
-      verbType
-    }]
+    return [
+      {
+        tense: 'Infinitivo',
+        verbType,
+      },
+    ]
   }
 
   const root = infinitive.slice(0, -2)
@@ -43,7 +45,7 @@ function getFrenchConjugationRules (infinitiveRaw, conjugatedWordRaw) {
       const conjugationRoot = type === 'ROOT' ? root : infinitive
       if (conjugationRoot + personsRules.all.ending === conjugatedWord) {
         conjugations.push({
-          tense: tenseName
+          tense: tenseName,
         })
       }
     } else {
@@ -54,7 +56,7 @@ function getFrenchConjugationRules (infinitiveRaw, conjugatedWordRaw) {
         if (conjugationRoot + ending === conjugatedWord) {
           conjugations.push({
             tense: tenseName,
-            person
+            person,
           })
         }
       }

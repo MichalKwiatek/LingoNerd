@@ -10,7 +10,7 @@ import Alert from '@mui/material/Alert'
 import { Auth } from 'aws-amplify'
 import * as Sentry from '@sentry/react'
 
-function NewPassword () {
+function NewPassword() {
   const navigate = useNavigate()
 
   const [email, setEmail] = useState('')
@@ -25,19 +25,19 @@ function NewPassword () {
     mixpanel.track('NEW_PASSWORD_OPENED')
   }, [])
 
-  function onEmailChange (event) {
+  function onEmailChange(event) {
     setEmail(event.target.value)
   }
 
-  function onCodeChange (event) {
+  function onCodeChange(event) {
     setCode(event.target.value)
   }
 
-  function onPasswordChange (event) {
+  function onPasswordChange(event) {
     setPassword(event.target.value)
   }
 
-  async function onButtonClick () {
+  async function onButtonClick() {
     mixpanel.track('NEW_PASSWORD_CLICKED')
 
     setEmailError(null)
@@ -50,15 +50,19 @@ function NewPassword () {
       console.error('error signing in', error)
 
       if (error.code === 'UserNotConfirmedException') {
-        setEmailError('Email address not confirmed, please click on the link in the email message')
+        setEmailError(
+          'Email address not confirmed, please click on the link in the email message'
+        )
       } else if (error.code === 'NotAuthorizedException') {
         setEmailError('Email or password incorrect')
       } else if (error.code === 'InvalidPasswordException') {
-        setPasswordError('Password too short (min 8 letters) or without a digit')
+        setPasswordError(
+          'Password too short (min 8 letters) or without a digit'
+        )
       } else if (error.code === 'CodeMismatchException') {
         setPasswordError('Code incorrect')
       } else {
-        setEmailError('We\'re sorry, something went wrong')
+        setEmailError("We're sorry, something went wrong")
         Sentry.captureException(error)
         Sentry.captureException(new Error('unhandled Login error', error))
       }
@@ -66,18 +70,16 @@ function NewPassword () {
   }
 
   return (
-    <div className='sign-up-page'>
+    <div className="sign-up-page">
       <Alert style={{ marginBottom: 20 }} severity="info">
         In the "Code" field please type the code received in an email message
-        </Alert>
-      <div className='sign-up-form'>
-        <Link to={'/login'}>
-          Back to log in
-        </Link>
+      </Alert>
+      <div className="sign-up-form">
+        <Link to={'/login'}>Back to log in</Link>
         <Typography variant="h5" component="h5" style={{ marginTop: 15 }}>
           Choose new password
         </Typography>
-        <div className='sign-up-email-input'>
+        <div className="sign-up-email-input">
           <TextField
             label="Email"
             variant="outlined"
@@ -115,7 +117,7 @@ function NewPassword () {
             onClick={onButtonClick}
           >
             Change password
-            </Button>
+          </Button>
         </div>
       </div>
     </div>

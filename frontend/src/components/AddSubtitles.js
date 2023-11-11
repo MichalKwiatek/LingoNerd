@@ -28,10 +28,10 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4
+  p: 4,
 }
 
-function AddVideo () {
+function AddVideo() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { videoId } = useParams()
@@ -63,17 +63,19 @@ function AddVideo () {
     setIsSuccessModalOpen(true)
   }
 
-  const onFailure = () => { setIsFailureModalOpen(true) }
+  const onFailure = () => {
+    setIsFailureModalOpen(true)
+  }
 
   const loadSRT = () => {
     const parser = new srtParser2()
     const srtArray = parser.fromSrt(srt)
 
     if (srtArray.length > 0) {
-      const subs = srtArray.map(srt => ({
+      const subs = srtArray.map((srt) => ({
         id: uuidv4(),
         startTime: srt.startSeconds,
-        subtitle: srt.text
+        subtitle: srt.text,
       }))
       setSubtitles(subs)
       setMode('MANUAL')
@@ -87,10 +89,19 @@ function AddVideo () {
       return
     }
 
-    Auth.currentSession().then(data => {
+    Auth.currentSession().then((data) => {
       const token = data.getIdToken().getJwtToken()
 
-      dispatch(addContexts(video.id, video.language, subtitles, onSuccess, onFailure, token))
+      dispatch(
+        addContexts(
+          video.id,
+          video.language,
+          subtitles,
+          onSuccess,
+          onFailure,
+          token
+        )
+      )
     })
   }
 
@@ -104,7 +115,10 @@ function AddVideo () {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Parsing SRT failed. Are you sure the subtitles are correct?
           </Typography>
-          <Button variant="contained" onClick={() => setIsFailureModalOpen(false)}>
+          <Button
+            variant="contained"
+            onClick={() => setIsFailureModalOpen(false)}
+          >
             Close
           </Button>
         </Box>
@@ -133,12 +147,17 @@ function AddVideo () {
               onClick={() => navigate(`/check-subtitles/${videoId}`)}
             >
               translate
-          </Button>
+            </Button>
           </div>
         </Box>
       </Modal>
 
-      <Typography id="modal-modal-title" variant="h5" component="h2" style={{ marginTop: 15, marginBottom: 40 }}>
+      <Typography
+        id="modal-modal-title"
+        variant="h5"
+        component="h2"
+        style={{ marginTop: 15, marginBottom: 40 }}
+      >
         Add subtitles to the video:
       </Typography>
 
@@ -149,21 +168,39 @@ function AddVideo () {
             controls={true}
             config={{
               youtube: {
-                playerVars: { autoplay: 0, cc_load_policy: 1, cc_lang_pref: 'es-419' }
-              }
+                playerVars: {
+                  autoplay: 0,
+                  cc_load_policy: 1,
+                  cc_lang_pref: 'es-419',
+                },
+              },
             }}
             width={500}
             height={300}
           />
           <div style={{ marginTop: 20 }}>
-            <Button style={{ marginRight: 20 }} variant={'contained'} onClick={() => setMode('SRT')}>From SRT</Button>
-            <Button style={{ marginRight: 20 }} variant={'contained'} onClick={() => setMode('TEXT')}>from text</Button>
-            <Button variant={'contained'} onClick={() => setMode('MANUAL')}>Manual</Button>
+            <Button
+              style={{ marginRight: 20 }}
+              variant={'contained'}
+              onClick={() => setMode('SRT')}
+            >
+              From SRT
+            </Button>
+            <Button
+              style={{ marginRight: 20 }}
+              variant={'contained'}
+              onClick={() => setMode('TEXT')}
+            >
+              from text
+            </Button>
+            <Button variant={'contained'} onClick={() => setMode('MANUAL')}>
+              Manual
+            </Button>
           </div>
         </>
       )}
 
-      {(mode === 'SRT' && subtitles.length === 0) && (
+      {mode === 'SRT' && subtitles.length === 0 && (
         <div style={{ marginTop: 20, display: 'flex', alignItems: 'flex-end' }}>
           <TextareaAutosize
             placeholder={'Paste subtitles in SRT format here'}
@@ -178,29 +215,38 @@ function AddVideo () {
             disabled={!srt}
           >
             add subtitles from SRT
-        </Button>
+          </Button>
         </div>
       )}
 
       {(mode === 'MANUAL' || subtitles.length > 0) && (
-        <SubtitleList id={video?.id} url={video?.url} subtitles={subtitles} setSubtitles={setSubtitles} />
+        <SubtitleList
+          id={video?.id}
+          url={video?.url}
+          subtitles={subtitles}
+          setSubtitles={setSubtitles}
+        />
       )}
 
-      {(mode === 'TEXT' && subtitles.length === 0) && <SubtitlesFromText
-        id={video?.id}
-        url={video?.url}
-        subtitles={subtitles}
-        setSubtitles={setSubtitles}
-      />}
+      {mode === 'TEXT' && subtitles.length === 0 && (
+        <SubtitlesFromText
+          id={video?.id}
+          url={video?.url}
+          subtitles={subtitles}
+          setSubtitles={setSubtitles}
+        />
+      )}
 
-      {subtitles.length > 0 && <Button
-        style={{ marginTop: 30 }}
-        variant="contained"
-        color="primary"
-        onClick={saveSubtitles}
-      >
-        save subtitles
-        </Button>}
+      {subtitles.length > 0 && (
+        <Button
+          style={{ marginTop: 30 }}
+          variant="contained"
+          color="primary"
+          onClick={saveSubtitles}
+        >
+          save subtitles
+        </Button>
+      )}
     </div>
   )
 }

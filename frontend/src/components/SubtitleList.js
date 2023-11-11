@@ -8,57 +8,61 @@ import AddIcon from '@mui/icons-material/Add'
 import TimeInput from './TimeInput'
 import { v4 as uuidv4 } from 'uuid'
 
-function getMinStartTime (subtitles, subtitle) {
+function getMinStartTime(subtitles, subtitle) {
   const prevSubtitles = subtitles
-    .filter(s => s.id !== subtitle.id)
-    .filter(s => s.startTime < subtitle.startTime)
+    .filter((s) => s.id !== subtitle.id)
+    .filter((s) => s.startTime < subtitle.startTime)
 
   if (prevSubtitles.length === 0) {
     return 0
   }
 
-  return Math.max(...prevSubtitles.map(s => s.startTime)) + 0.01
+  return Math.max(...prevSubtitles.map((s) => s.startTime)) + 0.01
 }
 
-function SubtitleList (props) {
+function SubtitleList(props) {
   const [duration, setDuration] = useState(null)
   const [videoTime, setVideoTime] = useState(0)
   const [moveTime, setMoveTime] = useState(0)
   const videoElement = useRef()
 
   const updateSubtitle = (id, value, key) => {
-    props.setSubtitles(props.subtitles.map(sub => {
-      if (sub.id === id) {
-        return {
-          ...sub,
-          [key]: value
+    props.setSubtitles(
+      props.subtitles.map((sub) => {
+        if (sub.id === id) {
+          return {
+            ...sub,
+            [key]: value,
+          }
         }
-      }
 
-      return { ...sub }
-    }))
+        return { ...sub }
+      })
+    )
   }
 
   const moveSubtitles = () => {
-    props.setSubtitles(props.subtitles.map(sub => {
-      return {
-        ...sub,
-        startTime: Math.max(Math.min(sub.startTime + moveTime, duration), 0)
-      }
-    }))
+    props.setSubtitles(
+      props.subtitles.map((sub) => {
+        return {
+          ...sub,
+          startTime: Math.max(Math.min(sub.startTime + moveTime, duration), 0),
+        }
+      })
+    )
 
     setMoveTime(0)
   }
 
   const removeSubtitle = (id) => {
-    props.setSubtitles(props.subtitles.filter(sub => sub.id !== id))
+    props.setSubtitles(props.subtitles.filter((sub) => sub.id !== id))
   }
 
   const onAddNewSubtitle = (subtitle) => {
     const newSubtitle = {
       id: uuidv4(),
       startTime: subtitle.startTime + 0.01,
-      subtitle: ''
+      subtitle: '',
     }
 
     props.setSubtitles([...props.subtitles, newSubtitle])
@@ -68,15 +72,16 @@ function SubtitleList (props) {
     const newSubtitle = {
       id: uuidv4(),
       startTime: 0,
-      subtitle: ''
+      subtitle: '',
     }
 
     props.setSubtitles([...props.subtitles, newSubtitle])
   }
 
-  function getIsMinimalSubtitle () {
-    const firstSubtitle = props.subtitles
-      .sort((x, y) => x.startTime - y.startTime)[0]
+  function getIsMinimalSubtitle() {
+    const firstSubtitle = props.subtitles.sort(
+      (x, y) => x.startTime - y.startTime
+    )[0]
 
     if (!firstSubtitle) {
       return false
@@ -89,53 +94,67 @@ function SubtitleList (props) {
     <div
       style={{
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
       }}
     >
-      <div style={{
-        width: 500,
-        height: 400,
-        overflow: 'auto',
-        marginRight: 100
-      }}>
-        <Button disabled={getIsMinimalSubtitle()} onClick={() => addFirstSubtitle()}>
+      <div
+        style={{
+          width: 500,
+          height: 400,
+          overflow: 'auto',
+          marginRight: 100,
+        }}
+      >
+        <Button
+          disabled={getIsMinimalSubtitle()}
+          onClick={() => addFirstSubtitle()}
+        >
           Add subtitle <AddIcon />
         </Button>
         {props.subtitles
           .sort((x, y) => x.startTime - y.startTime)
-          .map(subtitle => (
+          .map((subtitle) => (
             <div
               key={subtitle.id}
               style={{
                 display: 'flex',
                 flexDirection: 'row',
-                marginBottom: 5
-              }}>
+                marginBottom: 5,
+              }}
+            >
               <TextareaAutosize
                 value={subtitle.subtitle}
                 minRows={7}
                 maxRows={7}
                 style={{ width: 350 }}
-                onChange={(e) => updateSubtitle(subtitle.id, e.target.value, 'subtitle')}
+                onChange={(e) =>
+                  updateSubtitle(subtitle.id, e.target.value, 'subtitle')
+                }
               />
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                marginLeft: 20
-              }}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  marginLeft: 20,
+                }}
+              >
                 <TimeInput
                   style={{ width: 70, padding: 5, marginBottom: 5 }}
                   time={subtitle.startTime}
-                  setTime={(time) => updateSubtitle(subtitle.id, time, 'startTime')}
+                  setTime={(time) =>
+                    updateSubtitle(subtitle.id, time, 'startTime')
+                  }
                   minTime={getMinStartTime(props.subtitles, subtitle)}
                   maxTime={duration}
                   editable
                 />
-                <div style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'flex-end'
-                }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'flex-end',
+                  }}
+                >
                   <IconButton onClick={() => removeSubtitle(subtitle.id)}>
                     <DeleteIcon />
                   </IconButton>
@@ -151,34 +170,38 @@ function SubtitleList (props) {
           ))}
       </div>
       <div>
-        <TimeInput
-          time={videoTime}
-          editable={false}
-        />
+        <TimeInput time={videoTime} editable={false} />
         <ReactPlayer
           url={props.url}
           controls={true}
           config={{
             youtube: {
-              playerVars: { autoplay: 0, cc_load_policy: 1, cc_lang_pref: 'es-419' }
-            }
+              playerVars: {
+                autoplay: 0,
+                cc_load_policy: 1,
+                cc_lang_pref: 'es-419',
+              },
+            },
           }}
           width={500}
           height={300}
           ref={videoElement}
           onReady={() => setDuration(videoElement.current.getDuration())}
-          onProgress={e => setVideoTime(e.playedSeconds)}
+          onProgress={(e) => setVideoTime(e.playedSeconds)}
           progressInterval={100}
         />
-        <div style={{
-          width: 500,
-          marginTop: 10,
-          padding: 10,
-          fontSize: 20
-        }}>
-          {props.subtitles
-            .filter((s) => s.startTime <= videoTime)
-            .sort((x, y) => y.startTime - x.startTime)[0]?.subtitle
+        <div
+          style={{
+            width: 500,
+            marginTop: 10,
+            padding: 10,
+            fontSize: 20,
+          }}
+        >
+          {
+            props.subtitles
+              .filter((s) => s.startTime <= videoTime)
+              .sort((x, y) => y.startTime - x.startTime)[0]?.subtitle
           }
         </div>
         <div>
@@ -186,7 +209,7 @@ function SubtitleList (props) {
           <TimeInput time={moveTime} setTime={setMoveTime} editable />
           <Button disabled={moveTime === 0} onClick={moveSubtitles}>
             Move
-        </Button>
+          </Button>
         </div>
       </div>
     </div>

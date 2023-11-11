@@ -8,7 +8,7 @@ import Context from './Context'
 import { getPresentedWordsToLearn } from '../Redux/LearningHistory/selectors'
 import { setWordAsLearnt } from '../Redux/LearningHistory/actions'
 
-function NewWordsLearning () {
+function NewWordsLearning() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -17,7 +17,9 @@ function NewWordsLearning () {
 
   const newWordsToLearn = useSelector(getPresentedWordsToLearn)
   const [wordId, setWordId] = useState(null)
-  const [newWordsToLearnQueue, setNewWordsToLearnQueue] = useState([...newWordsToLearn])
+  const [newWordsToLearnQueue, setNewWordsToLearnQueue] = useState([
+    ...newWordsToLearn,
+  ])
 
   useEffect(() => {
     if (isInitialLoadingFinished) {
@@ -35,7 +37,7 @@ function NewWordsLearning () {
   useEffect(() => {
     if (currentUserId) {
       mixpanel.track('NEW_WORDS_LEARNING', {
-        userId: currentUserId
+        userId: currentUserId,
       })
     }
   }, [currentUserId])
@@ -44,7 +46,7 @@ function NewWordsLearning () {
     return null
   }
 
-  function onAfterContext () {
+  function onAfterContext() {
     dispatch(setWordAsLearnt(wordId))
 
     const newQueue = newWordsToLearnQueue.slice(1)
@@ -66,10 +68,7 @@ function NewWordsLearning () {
           onWrongAnswer={onWrongAnswer}
         ></Test>
       </>} */}
-      <Context
-        wordId={wordId}
-        onGoNext={onAfterContext}
-      />
+      <Context wordId={wordId} onGoNext={onAfterContext} />
     </>
   )
 }

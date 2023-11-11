@@ -2,7 +2,6 @@ import { Amplify, Auth } from 'aws-amplify'
 
 Amplify.configure({
   Auth: {
-
     // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
     // identityPoolId: 'eu-west-1_uoS1sXL7k',
 
@@ -24,7 +23,7 @@ Amplify.configure({
 
     // OPTIONAL - This is used when autoSignIn is enabled for Auth.signUp
     // 'code' is used for Auth.confirmSignUp, 'link' is used for email link verification
-    signUpVerificationMethod: 'link' // 'code' | 'link'
+    signUpVerificationMethod: 'link', // 'code' | 'link'
 
     // // OPTIONAL - Configuration for cookie storage
     // // Note: if the secure flag is set to true, then the cookie transmission requires a secure protocol
@@ -59,7 +58,7 @@ Amplify.configure({
     //     redirectSignOut: 'http://localhost:3000/',
     //     responseType: 'code' // or 'token', note that REFRESH token will only be generated when the responseType is code
     // }
-  }
+  },
 })
 
 // You can get the current config object

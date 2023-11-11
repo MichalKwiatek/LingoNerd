@@ -18,10 +18,10 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4
+  p: 4,
 }
 
-function WaitingList (props) {
+function WaitingList(props) {
   const dispatch = useDispatch()
   const [language, setLanguage] = useState('EN')
   const [email, setEmail] = useState('')
@@ -31,18 +31,29 @@ function WaitingList (props) {
     setLanguage(event.target.value)
   }
 
-  function onEmailChange (event) {
+  function onEmailChange(event) {
     setEmail(event.target.value)
   }
 
-  function handleClick () {
-    dispatch(addToWaitingList(email, language, () => setIsSuccessModalOpen(true)))
+  function handleClick() {
+    dispatch(
+      addToWaitingList(email, language, () => setIsSuccessModalOpen(true))
+    )
   }
 
   return (
     <div style={{ maxWidth: '100%', paddingBottom: 20, marginTop: 20 }}>
-      <Typography variant="h6" component="h2" >Want to know when a language course will be released? Leave your email:</Typography>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: 10 }}>
+      <Typography variant="h6" component="h2">
+        Want to know when a language course will be released? Leave your email:
+      </Typography>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          marginTop: 10,
+        }}
+      >
         <Typography>Language you want to learn:</Typography>
         <Select
           labelId="demo-simple-select-label"
@@ -51,7 +62,11 @@ function WaitingList (props) {
           onChange={handleChangeLanguage}
           style={{ marginTop: 10 }}
         >
-          {props.languages.map(lang => <MenuItem key={lang.id} value={lang.id}>{lang.label}</MenuItem>)}
+          {props.languages.map((lang) => (
+            <MenuItem key={lang.id} value={lang.id}>
+              {lang.label}
+            </MenuItem>
+          ))}
         </Select>
 
         <TextField
@@ -71,7 +86,7 @@ function WaitingList (props) {
           onClick={handleClick}
         >
           Add me to the waiting list
-          </Button>
+        </Button>
       </div>
 
       <Modal
@@ -84,10 +99,17 @@ function WaitingList (props) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Thanks for leaving your email!
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ marginBottom: 10 }}>
+          <Typography
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+            style={{ marginBottom: 10 }}
+          >
             I'll email you when the course is ready!
           </Typography>
-          <Button variant="contained" onClick={() => setIsSuccessModalOpen(false)}>
+          <Button
+            variant="contained"
+            onClick={() => setIsSuccessModalOpen(false)}
+          >
             Close
           </Button>
         </Box>

@@ -6,10 +6,15 @@ import Button from '@mui/material/Button'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createWord } from '../Redux/Word/actions'
-import { genders, partsOfSpeech, personLabels, tenseLabels } from '../utils/conjugationRules'
+import {
+  genders,
+  partsOfSpeech,
+  personLabels,
+  tenseLabels,
+} from '../utils/conjugationRules'
 import WordPicker from './WordPicker'
 
-function AddNewWord (props) {
+function AddNewWord(props) {
   const dispatch = useDispatch()
 
   const [lemma, setLemma] = useState(props.lemma || '')
@@ -31,18 +36,20 @@ function AddNewWord (props) {
   }
 
   const addWord = () => {
-    dispatch(createWord({
-      lemma,
-      translation,
-      partOfSpeech,
-      gender,
-      isIrregular: partOfSpeech === 'v' && tense !== 'Infinitivo',
-      tense,
-      person,
-      rootVerbId,
-      language: props.language,
-      onSuccess
-    }))
+    dispatch(
+      createWord({
+        lemma,
+        translation,
+        partOfSpeech,
+        gender,
+        isIrregular: partOfSpeech === 'v' && tense !== 'Infinitivo',
+        tense,
+        person,
+        rootVerbId,
+        language: props.language,
+        onSuccess,
+      })
+    )
   }
 
   return (
@@ -73,37 +80,66 @@ function AddNewWord (props) {
         label="Part of speech"
         onChange={(event) => setPartOfSpeech(event.target.value)}
       >
-        {Object.keys(partsOfSpeech).map(id => <MenuItem value={id} key={id}>{partsOfSpeech[id]}</MenuItem>)}
+        {Object.keys(partsOfSpeech).map((id) => (
+          <MenuItem value={id} key={id}>
+            {partsOfSpeech[id]}
+          </MenuItem>
+        ))}
       </Select>
 
-      {partOfSpeech === 'n' && <Select
-        value={gender}
-        label="Noun gender"
-        onChange={(event) => setGender(event.target.value)}
-      >
-        {Object.keys(genders).map(id => <MenuItem value={id} key={id}>{genders[id]}</MenuItem>)}
-      </Select>}
-
-      {partOfSpeech === 'v' && <>
+      {partOfSpeech === 'n' && (
         <Select
-          value={tense}
-          label="Tense"
-          onChange={(event) => setTense(event.target.value)}
+          value={gender}
+          label="Noun gender"
+          onChange={(event) => setGender(event.target.value)}
         >
-          {Object.keys(tenseLabels).map(id => <MenuItem key={id} value={id}>{tenseLabels[id]}</MenuItem>)}
+          {Object.keys(genders).map((id) => (
+            <MenuItem value={id} key={id}>
+              {genders[id]}
+            </MenuItem>
+          ))}
         </Select>
-        {(tense !== 'PastParticiple' && tense !== 'Infinitivo' && tense !== 'Gerundio') && <Select
-          value={person}
-          label="Person"
-          onChange={(event) => setPerson(event.target.value)}
-        >
-          {Object.keys(personLabels).map(id => <MenuItem key={id} value={id}>{personLabels[id]}</MenuItem>)}
-        </Select>}
-      </>}
+      )}
 
-      {(partOfSpeech === 'v' && tense && tense !== 'Infinitivo') && <>
-        <WordPicker onSelectOption={(verb) => setRootVerbId(verb.id)} language={props.language} ></WordPicker>
-      </>}
+      {partOfSpeech === 'v' && (
+        <>
+          <Select
+            value={tense}
+            label="Tense"
+            onChange={(event) => setTense(event.target.value)}
+          >
+            {Object.keys(tenseLabels).map((id) => (
+              <MenuItem key={id} value={id}>
+                {tenseLabels[id]}
+              </MenuItem>
+            ))}
+          </Select>
+          {tense !== 'PastParticiple' &&
+            tense !== 'Infinitivo' &&
+            tense !== 'Gerundio' && (
+              <Select
+                value={person}
+                label="Person"
+                onChange={(event) => setPerson(event.target.value)}
+              >
+                {Object.keys(personLabels).map((id) => (
+                  <MenuItem key={id} value={id}>
+                    {personLabels[id]}
+                  </MenuItem>
+                ))}
+              </Select>
+            )}
+        </>
+      )}
+
+      {partOfSpeech === 'v' && tense && tense !== 'Infinitivo' && (
+        <>
+          <WordPicker
+            onSelectOption={(verb) => setRootVerbId(verb.id)}
+            language={props.language}
+          ></WordPicker>
+        </>
+      )}
 
       <Button
         variant="contained"
@@ -114,9 +150,16 @@ function AddNewWord (props) {
           !translation ||
           !partOfSpeech ||
           (partOfSpeech === 'n' && !gender) ||
-          (partOfSpeech === 'v' && !person && tense !== 'Gerundio' && tense !== 'PastParticiple' && tense !== 'Infinitivo') ||
+          (partOfSpeech === 'v' &&
+            !person &&
+            tense !== 'Gerundio' &&
+            tense !== 'PastParticiple' &&
+            tense !== 'Infinitivo') ||
           (partOfSpeech === 'v' && !tense) ||
-          (partOfSpeech === 'v' && tense && tense !== 'Infinitivo' && !rootVerbId)
+          (partOfSpeech === 'v' &&
+            tense &&
+            tense !== 'Infinitivo' &&
+            !rootVerbId)
         }
       >
         Add a new word

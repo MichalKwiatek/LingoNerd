@@ -1,9 +1,9 @@
-export function parseVideo (dbVideo) {
+export function parseVideo(dbVideo) {
   return {
     id: dbVideo.id,
     creationTimestamp: dbVideo.creation_timestamp,
     title: dbVideo.title,
     url: dbVideo.url,
-    creatorId: dbVideo.creator_id
+    creatorId: dbVideo.creator_id,
   }
 }

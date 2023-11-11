@@ -1,5 +1,6 @@
-export function parseWord (dbWord) {
-  const [translation1, translation2] = dbWord.translation.split(/[,;](?![^(]*\))/)
+export function parseWord(dbWord) {
+  const [translation1, translation2] =
+    dbWord.translation.split(/[,;](?![^(]*\))/)
   return {
     id: dbWord.id,
     lemma: dbWord.lemma,
@@ -13,6 +14,6 @@ export function parseWord (dbWord) {
     frequency: dbWord.frequency,
     flashcardWordId: dbWord.flashcard_word_id,
     numberOfVideos: dbWord.number_of_videos,
-    examples: dbWord.examples
+    examples: dbWord.examples,
   }
 }

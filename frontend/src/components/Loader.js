@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../styles/loader.css'
 import CircularProgress from '@mui/material/CircularProgress'
 
-function Loader (props) {
+function Loader(props) {
   const [isLoaderShown, setIsLoaderShown] = useState(false)
 
   useEffect(() => {
@@ -15,11 +15,7 @@ function Loader (props) {
     }
   }, [])
 
-  return (
-    <div className="loader">
-      {isLoaderShown && <CircularProgress />}
-    </div>
-  )
+  return <div className="loader">{isLoaderShown && <CircularProgress />}</div>
 }
 
 export default Loader

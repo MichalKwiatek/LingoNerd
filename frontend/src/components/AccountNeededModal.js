@@ -14,10 +14,10 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4
+  p: 4,
 }
 
-function AccountNeededModal (props) {
+function AccountNeededModal(props) {
   const navigate = useNavigate()
 
   return (
@@ -28,13 +28,18 @@ function AccountNeededModal (props) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2" style={{ marginBottom: 20 }}>
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          style={{ marginBottom: 20 }}
+        >
           To perform this action you need an account
-          </Typography>
+        </Typography>
         <div
           style={{
             display: 'flex',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
           }}
         >
           <Button variant="contained" onClick={() => navigate('/login')}>

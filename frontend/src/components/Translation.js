@@ -21,10 +21,10 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4
+  p: 4,
 }
 
-function Translation (props) {
+function Translation(props) {
   const [isAddNewWordModalOpen, setIsAddNewWordModalOpen] = useState(false)
   const [focusedTextTranslation, setFocusedTextTranslation] = useState(null)
 
@@ -56,7 +56,7 @@ function Translation (props) {
 
   const transformText = async () => {
     const foundWords = [
-      ...props.text.toLowerCase().matchAll(getLanguageLetters(props.language))
+      ...props.text.toLowerCase().matchAll(getLanguageLetters(props.language)),
     ]
     const textParts = foundWords.map((w) => ({
       id: uuidv4(),
@@ -67,14 +67,14 @@ function Translation (props) {
       textStart: w.index,
       textEnd: w.index + w[0].length - 1,
 
-      possibleLemmas: getPossibleLemmas(w[0], props.language)
+      possibleLemmas: getPossibleLemmas(w[0], props.language),
     }))
 
     const translatedWords = await translate({
       textParts,
       fullText: props.text,
       videoId: props.videoId,
-      language: props.language
+      language: props.language,
     })
 
     const videoWords = textParts.map((textPart) => ({
@@ -88,7 +88,7 @@ function Translation (props) {
 
       possibleWords: translatedWords[textPart.id].sort(
         (wordX, wordY) => wordY.frequency - wordX.frequency
-      )
+      ),
     }))
 
     props.setSelectedWords(videoWords)
@@ -115,7 +115,7 @@ function Translation (props) {
             word.tense === tense &&
             word.person === person
           )
-        })
+        }),
       }
     })
 
@@ -143,7 +143,7 @@ function Translation (props) {
             word.tense === tense &&
             word.person === person
           )
-        })
+        }),
       }
     })
 
@@ -162,7 +162,7 @@ function Translation (props) {
 
       return {
         ...textTranslation,
-        possibleWords: words
+        possibleWords: words,
       }
     })
     props.setSelectedWords(newSelectedWords)
@@ -197,16 +197,15 @@ function Translation (props) {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            marginBottom: 20
+            marginBottom: 20,
           }}
         >
           <div style={{ marginLeft: 15, marginRight: 25 }}>
             {textTranslation.text}
           </div>
 
-          {textTranslation.possibleWords.length > 0
-            ? (
-                textTranslation.possibleWords.map((word, index) => (
+          {textTranslation.possibleWords.length > 0 ? (
+            textTranslation.possibleWords.map((word, index) => (
               <React.Fragment
                 key={`${word.id} ${word.partOfSpeech} ${word.tense} ${word.person}`}
               >
@@ -248,14 +247,13 @@ function Translation (props) {
                   <div style={{ marginLeft: 20, marginRight: 20 }}>OR</div>
                 )}
               </React.Fragment>
-                ))
-              )
-            : (
+            ))
+          ) : (
             <div
               style={{
                 display: 'flex',
                 flexDirection: 'row',
-                alignItems: 'center'
+                alignItems: 'center',
               }}
             >
               <WordPicker
@@ -272,15 +270,15 @@ function Translation (props) {
                     {
                       id: 'NOT_A_WORD',
                       rootWordId: 'NOT_A_WORD',
-                      flashcardWordId: 'NOT_A_WORD'
-                    }
+                      flashcardWordId: 'NOT_A_WORD',
+                    },
                   ])
                 }
               >
                 Not a spanish word
               </Button>
             </div>
-              )}
+          )}
         </div>
       ))}
       <div style={{ display: 'flex', marginBottom: 20 }}>
@@ -290,8 +288,7 @@ function Translation (props) {
           style={{ width: 600 }}
           onChange={(e) => setTextLocal(e.target.value)}
         />
-        {props.text === textLocal || props.contextId !== textLocalContextId
-          ? (
+        {props.text === textLocal || props.contextId !== textLocalContextId ? (
           <Button
             variant="contained"
             style={{ height: 50, marginLeft: 20 }}
@@ -301,8 +298,7 @@ function Translation (props) {
           >
             Convert text to words
           </Button>
-            )
-          : (
+        ) : (
           <Button
             variant="contained"
             style={{ height: 50, marginLeft: 20 }}
@@ -312,7 +308,7 @@ function Translation (props) {
           >
             Update subtitle
           </Button>
-            )}
+        )}
       </div>
     </div>
   )

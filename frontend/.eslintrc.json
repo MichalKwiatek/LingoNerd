@@ -5,7 +5,8 @@
     },
     "extends": [
         "standard",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "eslint-config-prettier"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
@@ -19,6 +20,7 @@
         "react/prop-types": "off",
         "no-prototype-builtins": "off",
         "n/handle-callback-err": "off",
-        "new-cap": "off"
+        "new-cap": "off",
+        "comma-dangle": "off"
     }
 }

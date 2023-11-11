@@ -4,7 +4,9 @@ import { videoModuleName } from './constants/actions'
 export const getVideos = (state) => {
   const { videos } = state[videoModuleName]
 
-  return Object.values(videos).sort((x, y) => y.creationTimestamp - x.creationTimestamp)
+  return Object.values(videos).sort(
+    (x, y) => y.creationTimestamp - x.creationTimestamp
+  )
 }
 
 export const getVideo = (id) => (state) => {
@@ -53,8 +55,7 @@ export const getMyVideos = (state) => {
   const currentUserId = getCurrectUserId(state)
   const videos = getVideos(state)
 
-  return videos
-    .filter(v => v.creatorId === currentUserId)
+  return videos.filter((v) => v.creatorId === currentUserId)
 }
 
 export const getClipLike = (wordId, contextId) => (state) => {
@@ -94,6 +95,6 @@ export const getLikedVideos = (state) => {
   const likedVideoIds = Object.keys(videoLikes)
 
   return videos
-    .filter(v => likedVideoIds.includes(v.id) && videoLikes[v.id].value === 1)
+    .filter((v) => likedVideoIds.includes(v.id) && videoLikes[v.id].value === 1)
     .sort((v1, v2) => videoLikes[v2.id].timestamp - videoLikes[v1.id].timestamp)
 }

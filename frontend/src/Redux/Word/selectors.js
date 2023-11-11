@@ -3,7 +3,7 @@ import { wordModuleName } from './constants/actions'
 export const getWord = (wordId) => (state) => {
   const { words } = state[wordModuleName]
 
-  return words.find(word => word.id === wordId)
+  return words.find((word) => word.id === wordId)
 }
 
 export const getWords = (state) => {
@@ -11,14 +11,14 @@ export const getWords = (state) => {
 
   const sortedWords = words
     .sort((a, b) => b.frequency - a.frequency)
-    .filter(w => w.id !== 'NOT_A_WORD')
+    .filter((w) => w.id !== 'NOT_A_WORD')
   return sortedWords
 }
 
 export const getNumberOfWords = (state) => {
   const words = getWords(state)
-    .filter(w => w.numberOfVideos > 0)
-    .filter(w => w.id !== 'NOT_A_WORD')
+    .filter((w) => w.numberOfVideos > 0)
+    .filter((w) => w.id !== 'NOT_A_WORD')
   return words.length
 }
 

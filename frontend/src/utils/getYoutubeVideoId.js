@@ -1,4 +1,4 @@
-function getYoutubeVideoId (url) {
+function getYoutubeVideoId(url) {
   try {
     let videoId = ''
     const isShorts = url.includes('/shorts/')

@@ -11,18 +11,18 @@ export const partsOfSpeech = {
   article: 'article',
   other: 'other',
   NOT_A_WORD: '',
-  det: 'determiner'
+  det: 'determiner',
 }
 
 export const verbTypes = {
   IR: 'ir',
   AR: 'ar',
-  ER: 'er'
+  ER: 'er',
 }
 
 export const genders = {
   masculine: 'masculine',
-  feminine: 'feminine'
+  feminine: 'feminine',
 }
 
 export const tenseLabels = {
@@ -35,7 +35,7 @@ export const tenseLabels = {
   'indicative preterite': 'preterite',
   'past participle': 'past participle',
   'indicative imperfect': 'imperfect',
-  gerund: 'gerund'
+  gerund: 'gerund',
 }
 
 export const personLabels = {
@@ -46,7 +46,7 @@ export const personLabels = {
   5: 'you (plural)',
   6: 'they',
   7: 'usted',
-  '1,3': 'I/he/she/it'
+  '1,3': 'I/he/she/it',
 }
 
 const conjugationRules = {
@@ -57,22 +57,22 @@ const conjugationRules = {
       3: { ending: 'e' },
       4: { ending: 'emos' },
       5: { ending: 'ad' },
-      6: { ending: 'en' }
+      6: { ending: 'en' },
     },
     [verbTypes.ER]: {
       2: { ending: 'e' },
       3: { ending: 'a' },
       4: { ending: 'amos' },
       5: { ending: 'ed' },
-      6: { ending: 'an' }
+      6: { ending: 'an' },
     },
     [verbTypes.IR]: {
       2: { ending: 'e' },
       3: { ending: 'a' },
       4: { ending: 'amos' },
       5: { ending: 'id' },
-      6: { ending: 'an' }
-    }
+      6: { ending: 'an' },
+    },
   },
   PresenteIndicativo: {
     type: 'ROOT',
@@ -82,7 +82,7 @@ const conjugationRules = {
       3: { ending: 'a' },
       4: { ending: 'amos' },
       5: { ending: 'áis' },
-      6: { ending: 'an' }
+      6: { ending: 'an' },
     },
     [verbTypes.ER]: {
       1: { ending: 'o' },
@@ -90,7 +90,7 @@ const conjugationRules = {
       3: { ending: 'e' },
       4: { ending: 'emos' },
       5: { ending: 'éis' },
-      6: { ending: 'en' }
+      6: { ending: 'en' },
     },
     [verbTypes.IR]: {
       1: { ending: 'o' },
@@ -98,8 +98,8 @@ const conjugationRules = {
       3: { ending: 'e' },
       4: { ending: 'emos' },
       5: { ending: 'éis' },
-      6: { ending: 'en' }
-    }
+      6: { ending: 'en' },
+    },
   },
   FuturoIndicativo: {
     type: 'WHOLE_WORD',
@@ -109,20 +109,20 @@ const conjugationRules = {
       3: { ending: 'á' },
       4: { ending: 'emos' },
       5: { ending: 'éis' },
-      6: { ending: 'án' }
-    }
+      6: { ending: 'án' },
+    },
   },
   PastParticiple: {
     type: 'ROOT',
     [verbTypes.AR]: {
-      all: { ending: 'ado' }
+      all: { ending: 'ado' },
     },
     [verbTypes.ER]: {
-      all: { ending: 'ido' }
+      all: { ending: 'ido' },
     },
     [verbTypes.IR]: {
-      all: { ending: 'ido' }
-    }
+      all: { ending: 'ido' },
+    },
   },
   CondicionalIndicativo: {
     type: 'WHOLE_WORD',
@@ -132,20 +132,20 @@ const conjugationRules = {
       3: { ending: 'ía' },
       4: { ending: 'íamos' },
       5: { ending: 'íais' },
-      6: { ending: 'ían' }
-    }
+      6: { ending: 'ían' },
+    },
   },
   Gerundio: {
     type: 'ROOT',
     [verbTypes.AR]: {
-      all: { ending: 'ando' }
+      all: { ending: 'ando' },
     },
     [verbTypes.ER]: {
-      all: { ending: 'iendo' }
+      all: { ending: 'iendo' },
     },
     [verbTypes.IR]: {
-      all: { ending: 'iendo' }
-    }
+      all: { ending: 'iendo' },
+    },
   },
   PresenteSubjuntivo: {
     type: 'ROOT',
@@ -155,7 +155,7 @@ const conjugationRules = {
       3: { ending: 'e' },
       4: { ending: 'emos' },
       5: { ending: 'éis' },
-      6: { ending: 'en' }
+      6: { ending: 'en' },
     },
     [verbTypes.ER]: {
       1: { ending: 'a' },
@@ -163,7 +163,7 @@ const conjugationRules = {
       3: { ending: 'a' },
       4: { ending: 'amos' },
       5: { ending: 'áis' },
-      6: { ending: 'an' }
+      6: { ending: 'an' },
     },
     [verbTypes.IR]: {
       1: { ending: 'a' },
@@ -171,8 +171,8 @@ const conjugationRules = {
       3: { ending: 'a' },
       4: { ending: 'amos' },
       5: { ending: 'áis' },
-      6: { ending: 'an' }
-    }
+      6: { ending: 'an' },
+    },
   },
   PretéritoImperfectoIndicativo: {
     type: 'ROOT',
@@ -182,7 +182,7 @@ const conjugationRules = {
       3: { ending: 'aba' },
       4: { ending: 'ábamos' },
       5: { ending: 'abais' },
-      6: { ending: 'aban' }
+      6: { ending: 'aban' },
     },
     [verbTypes.ER]: {
       1: { ending: 'ía' },
@@ -190,7 +190,7 @@ const conjugationRules = {
       3: { ending: 'ía' },
       4: { ending: 'íamos' },
       5: { ending: 'íais' },
-      6: { ending: 'ían' }
+      6: { ending: 'ían' },
     },
     [verbTypes.IR]: {
       1: { ending: 'ía' },
@@ -198,8 +198,8 @@ const conjugationRules = {
       3: { ending: 'ía' },
       4: { ending: 'íamos' },
       5: { ending: 'íais' },
-      6: { ending: 'ían' }
-    }
+      6: { ending: 'ían' },
+    },
   },
   PretéritoPerfectoSimpleIndicativo: {
     type: 'ROOT',
@@ -209,7 +209,7 @@ const conjugationRules = {
       3: { ending: 'ó' },
       4: { ending: 'amos' },
       5: { ending: 'asteis' },
-      6: { ending: 'aron' }
+      6: { ending: 'aron' },
     },
     [verbTypes.ER]: {
       1: { ending: 'í' },
@@ -217,7 +217,7 @@ const conjugationRules = {
       3: { ending: 'ió' },
       4: { ending: 'imos' },
       5: { ending: 'isteis' },
-      6: { ending: 'ieron' }
+      6: { ending: 'ieron' },
     },
     [verbTypes.IR]: {
       1: { ending: 'í' },
@@ -225,8 +225,8 @@ const conjugationRules = {
       3: { ending: 'ió' },
       4: { ending: 'imos' },
       5: { ending: 'isteis' },
-      6: { ending: 'ieron' }
-    }
+      6: { ending: 'ieron' },
+    },
   },
   PretéritoImperfectoSubjuntivo1: {
     type: 'ROOT',
@@ -236,7 +236,7 @@ const conjugationRules = {
       3: { ending: 'ara' },
       4: { ending: 'áramos' },
       5: { ending: 'arais' },
-      6: { ending: 'aran' }
+      6: { ending: 'aran' },
     },
     [verbTypes.ER]: {
       1: { ending: 'iera' },
@@ -244,7 +244,7 @@ const conjugationRules = {
       3: { ending: 'iera' },
       4: { ending: 'iéramos' },
       5: { ending: 'ierais' },
-      6: { ending: 'ieran' }
+      6: { ending: 'ieran' },
     },
     [verbTypes.IR]: {
       1: { ending: 'iera' },
@@ -252,8 +252,8 @@ const conjugationRules = {
       3: { ending: 'iera' },
       4: { ending: 'iéramos' },
       5: { ending: 'ierais' },
-      6: { ending: 'ieran' }
-    }
+      6: { ending: 'ieran' },
+    },
   },
   PretéritoImperfectoSubjuntivo2: {
     type: 'ROOT',
@@ -263,7 +263,7 @@ const conjugationRules = {
       3: { ending: 'ase' },
       4: { ending: 'ásemos' },
       5: { ending: 'aseis' },
-      6: { ending: 'asen' }
+      6: { ending: 'asen' },
     },
     [verbTypes.ER]: {
       1: { ending: 'iese' },
@@ -271,7 +271,7 @@ const conjugationRules = {
       3: { ending: 'iese' },
       4: { ending: 'iésemos' },
       5: { ending: 'ieseis' },
-      6: { ending: 'iesen' }
+      6: { ending: 'iesen' },
     },
     [verbTypes.IR]: {
       1: { ending: 'iese' },
@@ -279,9 +279,9 @@ const conjugationRules = {
       3: { ending: 'iese' },
       4: { ending: 'iésemos' },
       5: { ending: 'ieseis' },
-      6: { ending: 'iesen' }
-    }
-  }
+      6: { ending: 'iesen' },
+    },
+  },
 }
 
 export default conjugationRules

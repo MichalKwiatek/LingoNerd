@@ -14,7 +14,7 @@ import { setWordAsPresented } from '../Redux/LearningHistory/actions'
 import { tenseLabels } from '../utils/conjugationRules'
 import conjugateTranslation from '../utils/getVerbLabel'
 
-function Presentation (props) {
+function Presentation(props) {
   const dispatch = useDispatch()
   const word = useSelector(getWord(props.id))
   const rootVerb = useSelector(getWord(word.rootWordId))
@@ -23,13 +23,13 @@ function Presentation (props) {
 
   const isMobile = useMediaQuery('(max-width:768px)')
 
-  function onKnownWord (e) {
+  function onKnownWord(e) {
     e.stopPropagation()
 
     mixpanel.track('WORD_ALREADY_KNOWN', {
       userId: currentUserId,
       wordId: word.id,
-      wordFront: word.lemma
+      wordFront: word.lemma,
     })
 
     dispatch(addKnownWord(word.id))
@@ -41,16 +41,16 @@ function Presentation (props) {
       mixpanel.track('PRESENTATION_SHOWN', {
         userId: currentUserId,
         wordId: word.id,
-        wordFront: word.lemma
+        wordFront: word.lemma,
       })
     }
   }, [currentUserId, word])
 
-  function onClickNext () {
+  function onClickNext() {
     mixpanel.track('LEARN_WORD_CLICKED', {
       userId: currentUserId,
       wordId: word.id,
-      wordFront: word.lemma
+      wordFront: word.lemma,
     })
 
     dispatch(setWordAsPresented(props.id))
@@ -59,14 +59,14 @@ function Presentation (props) {
 
   const examples = (word.examples || '')
     .split('***')
-    .map(example => {
+    .map((example) => {
       const parts = example.split('|||')
       return {
         sentence: parts[0],
-        translation: parts[1]
+        translation: parts[1],
       }
     })
-    .filter(example => example.sentence && example.translation)
+    .filter((example) => example.sentence && example.translation)
 
   return (
     <div className="flashcard-front">
@@ -79,27 +79,39 @@ function Presentation (props) {
           flexDirection: 'column',
           alignItems: 'center',
           textAlign: 'center',
-          padding: '120px 20px'
+          padding: '120px 20px',
         }}
       >
         <AudioPlayer id={word.id} />
         <Typography variant="h5" component="h5" style={{ fontWeight: 500 }}>
-          {word.lemma} - {word.partOfSpeech === 'verb'
+          {word.lemma} -{' '}
+          {word.partOfSpeech === 'verb'
             ? conjugateTranslation(word)
             : word.translation}
         </Typography>
-        {(!!rootVerb && !!word.tense) && (<div>
-          <Typography variant="h5" component="h5" style={{ marginBottom: 10 }}>
-            Infinitive: {rootVerb.lemma} - {rootVerb.translation}
-          </Typography>
-          <Typography variant="h5" component="h5">
-            Tense: {tenseLabels[word.tense]}
-          </Typography>
-        </div>)}
+        {!!rootVerb && !!word.tense && (
+          <div>
+            <Typography
+              variant="h5"
+              component="h5"
+              style={{ marginBottom: 10 }}
+            >
+              Infinitive: {rootVerb.lemma} - {rootVerb.translation}
+            </Typography>
+            <Typography variant="h5" component="h5">
+              Tense: {tenseLabels[word.tense]}
+            </Typography>
+          </div>
+        )}
         {examples.length > 0 && (
           <div>
             {examples.map((example, index) => (
-              <Typography variant="h6" component="h6" style={{ marginBottom: 10 }} key={index}>
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ marginBottom: 10 }}
+                key={index}
+              >
                 {example.sentence} - {example.translation}
               </Typography>
             ))}
@@ -113,12 +125,8 @@ function Presentation (props) {
             style={{ marginRight: 30 }}
           >
             known
-        </Button>
-          <Button
-            color="success"
-            variant="contained"
-            onClick={onClickNext}
-          >
+          </Button>
+          <Button color="success" variant="contained" onClick={onClickNext}>
             Learn!
           </Button>
         </div>

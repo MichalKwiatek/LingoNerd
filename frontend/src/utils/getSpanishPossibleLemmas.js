@@ -7,7 +7,7 @@ const adjectiveSingleMasculine = {
   a: ['o'],
   es: ['e', ''],
   as: ['o'],
-  os: ['o']
+  os: ['o'],
 }
 
 const nounSingleMasculine = {
@@ -42,14 +42,37 @@ const nounSingleMasculine = {
   as: ['o', 'a'],
   a: ['o'],
 
-  s: ['']
+  s: [''],
 }
 
-const masculineAndFeminineEndings = ['quitas', 'quita', 'ita', 'itas', 'as', 'a']
+const masculineAndFeminineEndings = [
+  'quitas',
+  'quita',
+  'ita',
+  'itas',
+  'as',
+  'a',
+]
 
-const indirectAndDirectPronouns = ['mela', 'melo', 'me', 'tela', 'telo', 'te', 'la', 'lo', 'nos', 'os', 'los', 'las', 'le', 'les', 'se']
+const indirectAndDirectPronouns = [
+  'mela',
+  'melo',
+  'me',
+  'tela',
+  'telo',
+  'te',
+  'la',
+  'lo',
+  'nos',
+  'os',
+  'los',
+  'las',
+  'le',
+  'les',
+  'se',
+]
 
-function getSpanishPossibleLemmas (text) {
+function getSpanishPossibleLemmas(text) {
   const possibleLemmas = []
 
   if (text === 'al') {
@@ -96,7 +119,13 @@ function getSpanishPossibleLemmas (text) {
     return [{ lemma: 'mi' }]
   }
 
-  if (text === 'esa' || text === 'esos' || text === 'esas' || text === 'eso' || text === 'ese') {
+  if (
+    text === 'esa' ||
+    text === 'esos' ||
+    text === 'esas' ||
+    text === 'eso' ||
+    text === 'ese'
+  ) {
     return [{ lemma: 'ese', partOfSpeech: 'det' }]
   }
 
@@ -148,7 +177,12 @@ function getSpanishPossibleLemmas (text) {
     return [{ lemma: 'para', partOfSpeech: 'prep' }]
   }
 
-  if (text === 'ninguna' || text === 'ningunas' || text === 'ningunos' || text === 'ningún') {
+  if (
+    text === 'ninguna' ||
+    text === 'ningunas' ||
+    text === 'ningunos' ||
+    text === 'ningún'
+  ) {
     return [{ lemma: 'ninguno' }]
   }
 
@@ -202,36 +236,49 @@ function getSpanishPossibleLemmas (text) {
 
   possibleLemmas.push({ lemma: text })
 
-  const adjectiveEnding = Object.keys(adjectiveSingleMasculine).find(ending => text.endsWith(ending))
+  const adjectiveEnding = Object.keys(adjectiveSingleMasculine).find((ending) =>
+    text.endsWith(ending)
+  )
   if (adjectiveEnding && text.length > 2) {
-    const singleMasculineEndings = adjectiveSingleMasculine[adjectiveEnding] || []
-    singleMasculineEndings.forEach(singleMasculineEnding => {
+    const singleMasculineEndings =
+      adjectiveSingleMasculine[adjectiveEnding] || []
+    singleMasculineEndings.forEach((singleMasculineEnding) => {
       possibleLemmas.push({
-        lemma: text.substring(0, text.length - adjectiveEnding.length) + singleMasculineEnding,
-        partOfSpeech: 'adj'
+        lemma:
+          text.substring(0, text.length - adjectiveEnding.length) +
+          singleMasculineEnding,
+        partOfSpeech: 'adj',
       })
     })
   }
 
-  const nounEnding = Object.keys(nounSingleMasculine).find(ending => text.endsWith(ending))
+  const nounEnding = Object.keys(nounSingleMasculine).find((ending) =>
+    text.endsWith(ending)
+  )
   if (nounEnding && text.length > 2) {
     const singleMasculineEndings = nounSingleMasculine[nounEnding] || []
-    singleMasculineEndings.forEach(singleMasculineEnding => {
-      const isMF = masculineAndFeminineEndings.includes(nounEnding) && singleMasculineEnding.endsWith('o')
+    singleMasculineEndings.forEach((singleMasculineEnding) => {
+      const isMF =
+        masculineAndFeminineEndings.includes(nounEnding) &&
+        singleMasculineEnding.endsWith('o')
 
       possibleLemmas.push({
-        lemma: text.substring(0, text.length - nounEnding.length) + singleMasculineEnding,
+        lemma:
+          text.substring(0, text.length - nounEnding.length) +
+          singleMasculineEnding,
         partOfSpeech: 'noun',
-        gender: isMF ? 'm/f' : null
+        gender: isMF ? 'm/f' : null,
       })
     })
   }
 
-  const verbEnding = indirectAndDirectPronouns.find(ending => text.endsWith(ending))
+  const verbEnding = indirectAndDirectPronouns.find((ending) =>
+    text.endsWith(ending)
+  )
   if (verbEnding && text.length > 2) {
     possibleLemmas.push({
       lemma: text.substring(0, text.length - verbEnding.length),
-      partOfSpeech: 'verb'
+      partOfSpeech: 'verb',
     })
   }
 

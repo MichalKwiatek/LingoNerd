@@ -9,7 +9,7 @@ import { likeVideo } from '../Redux/Video/actions'
 import AccountNeededModal from './AccountNeededModal'
 import { getIsAuthorized } from '../Redux/User/selectors'
 
-function VideoLikes (props) {
+function VideoLikes(props) {
   const dispatch = useDispatch()
 
   const isAuthorized = useSelector(getIsAuthorized)
@@ -23,7 +23,7 @@ function VideoLikes (props) {
       return
     }
 
-    Auth.currentSession().then(data => {
+    Auth.currentSession().then((data) => {
       const token = data.getIdToken().getJwtToken()
 
       const newValue = like === 1 ? 0 : 1
@@ -37,7 +37,7 @@ function VideoLikes (props) {
       return
     }
 
-    Auth.currentSession().then(data => {
+    Auth.currentSession().then((data) => {
       const token = data.getIdToken().getJwtToken()
 
       const newValue = like === -1 ? 0 : -1
@@ -46,13 +46,18 @@ function VideoLikes (props) {
   }
 
   return (
-    <div style={{
-      width: 80,
-      border: '2px solid #777',
-      borderRadius: 20,
-      padding: '0px 10px'
-    }}>
-      <AccountNeededModal isModalOpen={isForbiddenModalOpen} setIsModalOpen={setIsForbiddenModalOpen} />
+    <div
+      style={{
+        width: 80,
+        border: '2px solid #777',
+        borderRadius: 20,
+        padding: '0px 10px',
+      }}
+    >
+      <AccountNeededModal
+        isModalOpen={isForbiddenModalOpen}
+        setIsModalOpen={setIsForbiddenModalOpen}
+      />
       <IconButton onClick={onLike}>
         <ThumbUpIcon sx={like === 1 ? { fill: 'green' } : {}} />
       </IconButton>

@@ -10,7 +10,7 @@ import Button from '@mui/material/Button'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import conjugateTranslation from '../utils/getVerbLabel'
 
-function FlashcardFront (props) {
+function FlashcardFront(props) {
   const word = useSelector(getWord(props.id))
 
   const currentUserId = useSelector(getCurrectUserId)
@@ -22,14 +22,13 @@ function FlashcardFront (props) {
       mixpanel.track('FLASHCARD_SHOWN', {
         userId: currentUserId,
         wordId: word.id,
-        wordFront: word.lemma
+        wordFront: word.lemma,
       })
     }
   }, [currentUserId, word])
 
   return (
     <div className="flashcard-front">
-
       <Paper
         style={{
           width: isMobile ? '90%' : '40%',
@@ -39,22 +38,19 @@ function FlashcardFront (props) {
           flexDirection: 'column',
           cursor: 'pointer',
           alignItems: 'center',
-          padding: 5
+          padding: 5,
         }}
         onClick={props.onClick}
       >
         <Typography variant="h5" component="h5" style={{ marginBottom: 20 }}>
           Remember this word in spanish?
-      </Typography>
+        </Typography>
         <Typography variant="h5" component="h5">
           {conjugateTranslation(word)}
         </Typography>
-        <Button
-          color="secondary"
-          variant="contained"
-        >
+        <Button color="secondary" variant="contained">
           See the answer
-          </Button>
+        </Button>
       </Paper>
     </div>
   )

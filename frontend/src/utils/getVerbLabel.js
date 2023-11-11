@@ -10,7 +10,7 @@ const presentEnglishConj = {
     '1,3': 'is',
     4: 'are',
     5: 'are',
-    6: 'are'
+    6: 'are',
   },
   have: {
     1: 'have',
@@ -19,7 +19,7 @@ const presentEnglishConj = {
     '1,3': 'has',
     4: 'have',
     5: 'have',
-    6: 'have'
+    6: 'have',
   },
   do: {
     1: 'do',
@@ -28,7 +28,7 @@ const presentEnglishConj = {
     '1,3': 'does',
     4: 'do',
     5: 'do',
-    6: 'do'
+    6: 'do',
   },
   go: {
     1: 'go',
@@ -37,8 +37,8 @@ const presentEnglishConj = {
     '1,3': 'goes',
     4: 'go',
     5: 'go',
-    6: 'go'
-  }
+    6: 'go',
+  },
 }
 
 const tenseTranslations = {
@@ -51,14 +51,14 @@ const tenseTranslations = {
   'past participle': 'PAST_PARTICIPLE',
   conditional: 'CONDITIONAL',
   imperative: 'IMPERATIVE',
-  gerund: 'GERUND'
+  gerund: 'GERUND',
 }
 
 const gerundConjugation = {
-  be: 'being'
+  be: 'being',
 }
 
-function conjugate (infinitive, tense, person) {
+function conjugate(infinitive, tense, person) {
   const englishTense = tenseTranslations[tense]
 
   if (englishTense === 'PAST_PARTICIPLE') {
@@ -117,24 +117,34 @@ function conjugate (infinitive, tense, person) {
   return infinitive
 }
 
-function conjugateTranslation (word) {
+function conjugateTranslation(word) {
   if (word.id === 'NOT_A_WORD') {
     return 'Not a Spanish word'
   }
 
   const translations = word.translation.split(/[,;](?![^(]*\))/)
 
-  if (!word.tense || !translations[0].startsWith('to ') || word.partOfSpeech !== 'verb') {
+  if (
+    !word.tense ||
+    !translations[0].startsWith('to ') ||
+    word.partOfSpeech !== 'verb'
+  ) {
     return word.translation
   }
   console.log(translations)
   return translations
-    .map(tr => {
+    .map((tr) => {
       const startsWithTo = tr.trim().startsWith('to ')
-      const [verb, ...rest] = tr.trim().substring(startsWithTo ? 3 : 0).split(' ')
+      const [verb, ...rest] = tr
+        .trim()
+        .substring(startsWithTo ? 3 : 0)
+        .split(' ')
 
-      return `${conjugate(verb, word.tense, word.person)} ${rest.join(' ').split('(')[0]} `
-    }).join(', ')
+      return `${conjugate(verb, word.tense, word.person)} ${
+        rest.join(' ').split('(')[0]
+      } `
+    })
+    .join(', ')
 }
 
 export default conjugateTranslation

@@ -24,10 +24,10 @@ const urls = {
   'daily-review': ['daily-flashcards'],
   videos: ['videos', 'video'],
   'my-videos': ['my-videos'],
-  'liked-videos': ['liked-videos']
+  'liked-videos': ['liked-videos'],
 }
 
-function getIcon (id) {
+function getIcon(id) {
   if (id === 'learn') {
     return <TranslateIcon />
   }
@@ -49,7 +49,7 @@ function getIcon (id) {
   }
 }
 
-function SideMenu (props) {
+function SideMenu(props) {
   const isMobile = useMediaQuery('(max-width:768px)')
   const navigate = useNavigate()
   const location = useLocation()
@@ -68,41 +68,57 @@ function SideMenu (props) {
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
-          top: isMobile ? 56 : 64
-        }
+          top: isMobile ? 56 : 64,
+        },
       }}
     >
       <Box sx={{ overflow: 'auto' }}>
         <List>
-          {[{ id: 'learn', url: '/', label: 'Learn' }, { id: 'videos', url: '/videos', label: 'Videos' }]
-            .map(({ id, url, label }, index) => (
-              <ListItem key={url} disablePadding selected={urls[id].includes(route)}>
-                <ListItemButton onClick={() => navigate(url)}>
-                  <ListItemIcon>
-                    {getIcon(id)}
-                  </ListItemIcon>
-                  <ListItemText primary={label} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+          {[
+            { id: 'learn', url: '/', label: 'Learn' },
+            { id: 'videos', url: '/videos', label: 'Videos' },
+          ].map(({ id, url, label }, index) => (
+            <ListItem
+              key={url}
+              disablePadding
+              selected={urls[id].includes(route)}
+            >
+              <ListItemButton onClick={() => navigate(url)}>
+                <ListItemIcon>{getIcon(id)}</ListItemIcon>
+                <ListItemText primary={label} />
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
         <Divider />
         <List>
           {[
             { id: 'liked-videos', url: '/liked-videos', label: 'Liked videos' },
             { id: 'my-videos', url: '/my-videos', label: 'My videos' },
-            { id: 'daily-review', url: '/daily-flashcards', label: 'Daily review' }
+            {
+              id: 'daily-review',
+              url: '/daily-flashcards',
+              label: 'Daily review',
+            },
           ].map(({ id, url, label }) => (
-            <ListItem key={url} disablePadding selected={urls[id].includes(route)}>
+            <ListItem
+              key={url}
+              disablePadding
+              selected={urls[id].includes(route)}
+            >
               <ListItemButton
-                disabled={id === 'daily-review' && wordsToReviewToday.length === 0}
+                disabled={
+                  id === 'daily-review' && wordsToReviewToday.length === 0
+                }
                 onClick={() => navigate(url)}
               >
-                <ListItemIcon>
-                  {getIcon(id)}
-                </ListItemIcon>
+                <ListItemIcon>{getIcon(id)}</ListItemIcon>
                 <ListItemText
-                  primary={id === 'daily-review' ? `${label} (${wordsToReviewToday.length})` : label}
+                  primary={
+                    id === 'daily-review'
+                      ? `${label} (${wordsToReviewToday.length})`
+                      : label
+                  }
                 />
               </ListItemButton>
             </ListItem>

@@ -9,7 +9,7 @@ import { getVideo, getVideosPage } from '../Redux/Video/selectors'
 import SuggestedVideoList from './SuggestedVideoList'
 import Video from './Video'
 
-function VideoPage () {
+function VideoPage() {
   const isMobile = useMediaQuery('(max-width:768px)')
   const { videoId } = useParams()
   const dispatch = useDispatch()
@@ -29,7 +29,7 @@ function VideoPage () {
 
   useEffect(() => {
     mixpanel.track('VIDEO_PAGE_SHOWN', {
-      videoId
+      videoId,
     })
   }, [])
 
@@ -44,7 +44,7 @@ function VideoPage () {
         height: '100%',
         display: 'flex',
         justifyContent: 'space-between',
-        marginLeft: isMobile ? 0 : 270
+        marginLeft: isMobile ? 0 : 270,
       }}
     >
       <Video videoId={video.id} />

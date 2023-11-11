@@ -4,10 +4,15 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { fetchAllVideos } from '../Redux/Video/actions'
-import { getAreVideosLoading, getVideos, getVideosPage, getAreMoreVideos } from '../Redux/Video/selectors'
+import {
+  getAreVideosLoading,
+  getVideos,
+  getVideosPage,
+  getAreMoreVideos,
+} from '../Redux/Video/selectors'
 import getYoutubeVideoId from '../utils/getYoutubeVideoId'
 
-function VideosPage () {
+function VideosPage() {
   const dispatch = useDispatch()
   const isMobile = useMediaQuery('(max-width:768px)')
   const navigate = useNavigate()
@@ -28,7 +33,10 @@ function VideosPage () {
   }, [])
 
   const handleScroll = (e) => {
-    if (e.target.scrollHeight - e.target.scrollTop < (e.target.clientHeight + 10)) {
+    if (
+      e.target.scrollHeight - e.target.scrollTop <
+      e.target.clientHeight + 10
+    ) {
       if (!areVideosLoading && areMoreVideos) {
         dispatch(fetchAllVideos(videosPage + 1))
       }
@@ -36,32 +44,34 @@ function VideosPage () {
   }
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      marginLeft: isMobile ? 20 : 310,
-      marginTop: 80,
-      height: '100%',
-      overflow: 'auto'
-    }}
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginLeft: isMobile ? 20 : 310,
+        marginTop: 80,
+        height: '100%',
+        overflow: 'auto',
+      }}
       onScroll={handleScroll}
     >
-      {
-        videos.map(({ id, title, url }) => {
-          return (<div
+      {videos.map(({ id, title, url }) => {
+        return (
+          <div
             key={id}
             style={{
               marginRight: 15,
-              cursor: 'pointer'
+              cursor: 'pointer',
             }}
             onClick={() => navigate(`/video/${id}`)}
           >
-            <img src={`https://img.youtube.com/vi/${getYoutubeVideoId(url)}/0.jpg`}
+            <img
+              src={`https://img.youtube.com/vi/${getYoutubeVideoId(url)}/0.jpg`}
               style={{
                 borderRadius: 20,
                 width: 305,
-                height: 200
+                height: 200,
               }}
             />
             <div
@@ -69,13 +79,15 @@ function VideosPage () {
                 width: 280,
                 marginTop: 10,
                 marginBottom: 20,
-                fontWeight: 600
+                fontWeight: 600,
               }}
-            >{title}</div>
-          </div>)
-        })
-      }
-    </div >
+            >
+              {title}
+            </div>
+          </div>
+        )
+      })}
+    </div>
   )
 }
 

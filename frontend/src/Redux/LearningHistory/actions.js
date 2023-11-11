@@ -6,23 +6,24 @@ import {
   SET_CONTEXT_AS_SEEN,
   SET_WORD_AS_LEARNT,
   SET_WORD_AS_PRESENTED,
-  SET_WORD_AS_SEEN
+  SET_WORD_AS_SEEN,
 } from './constants/actions'
 import { getWordTimesSeen } from './selectors'
 import { parseClipLike, parseLearntWord, parseVideoLike } from './utils'
 
-export const setWordContextAsSeen = (wordId, contextId) => (dispatch, getState) => {
-  dispatch({
-    type: SET_CONTEXT_AS_SEEN,
-    wordId,
-    contextId
-  })
-}
+export const setWordContextAsSeen =
+  (wordId, contextId) => (dispatch, getState) => {
+    dispatch({
+      type: SET_CONTEXT_AS_SEEN,
+      wordId,
+      contextId,
+    })
+  }
 
 export const setWordAsPresented = (wordId) => (dispatch, getState) => {
   dispatch({
     type: SET_WORD_AS_PRESENTED,
-    wordId
+    wordId,
   })
 }
 
@@ -38,17 +39,17 @@ export const fetchLearningHistory = (dispatch, getState) => {
       const clipLikes = data.clipLikes.map(parseClipLike)
 
       const history = {}
-      learningHistory.forEach(learntWord => {
+      learningHistory.forEach((learntWord) => {
         history[learntWord.wordId] = learntWord
       })
 
       const videoLikesMap = {}
-      videoLikes.forEach(videoLike => {
+      videoLikes.forEach((videoLike) => {
         videoLikesMap[videoLike.videoId] = videoLike
       })
 
       const clipLikesMap = {}
-      clipLikes.forEach(clipLike => {
+      clipLikes.forEach((clipLike) => {
         clipLikesMap[`${clipLike.wordId}||${clipLike.contextId}`] = clipLike
       })
 
@@ -58,7 +59,7 @@ export const fetchLearningHistory = (dispatch, getState) => {
         previouslyKnownWords: data.knownWords,
         selectedLevel: data.selectedLevel,
         clipLikes: clipLikesMap,
-        videoLikes: videoLikesMap
+        videoLikes: videoLikesMap,
       })
     })
 }
@@ -72,26 +73,25 @@ export const setWordAsSeen = (wordId) => (dispatch, getState) => {
     type: SET_WORD_AS_SEEN,
     wordId,
     timesSeen: timesSeen + 1,
-    timestamp
+    timestamp,
   })
 
   fetch(`${API_URL}/word-seen`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       userId,
       wordId,
       timesSeen: timesSeen + 1,
-      timestamp
-    })
+      timestamp,
+    }),
+  }).then((res) => {
+    if (res.status !== 200) {
+      console.error('error', res)
+    }
   })
-    .then((res) => {
-      if (res.status !== 200) {
-        console.error('error', res)
-      }
-    })
 }
 
 export const setWordAsLearnt = (wordId) => (dispatch, getState) => {
@@ -102,24 +102,23 @@ export const setWordAsLearnt = (wordId) => (dispatch, getState) => {
     userId,
     wordId,
     learntTimestamp,
-    lastSeenTimestamp: learntTimestamp
+    lastSeenTimestamp: learntTimestamp,
   }
 
   dispatch({
     type: SET_WORD_AS_LEARNT,
-    learntWord
+    learntWord,
   })
 
   fetch(`${API_URL}/set-word-as-learnt`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(learntWord)
+    body: JSON.stringify(learntWord),
+  }).then((res) => {
+    if (res.status !== 200) {
+      console.error('error', res)
+    }
   })
-    .then((res) => {
-      if (res.status !== 200) {
-        console.error('error', res)
-      }
-    })
 }

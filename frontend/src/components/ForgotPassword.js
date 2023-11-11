@@ -8,7 +8,7 @@ import mixpanel from 'mixpanel-browser'
 
 import { Auth } from 'aws-amplify'
 
-function ForgotPassword () {
+function ForgotPassword() {
   const navigate = useNavigate()
 
   const [email, setEmail] = useState('')
@@ -18,11 +18,11 @@ function ForgotPassword () {
     mixpanel.track('FORGOT_PASSWORD_OPENED')
   }, [])
 
-  function onEmailChange (event) {
+  function onEmailChange(event) {
     setEmail(event.target.value)
   }
 
-  async function onButtonClick () {
+  async function onButtonClick() {
     try {
       setEmailError(null)
       await Auth.forgotPassword(email)
@@ -34,15 +34,13 @@ function ForgotPassword () {
   }
 
   return (
-    <div className='sign-up-page'>
-      <div className='sign-up-form'>
-        <Link to={'/login'}>
-          Back to log in
-        </Link>
+    <div className="sign-up-page">
+      <div className="sign-up-form">
+        <Link to={'/login'}>Back to log in</Link>
         <Typography variant="h5" component="h5" style={{ marginTop: 15 }}>
           Reset password
-      </Typography>
-        <div className='sign-up-email-input'>
+        </Typography>
+        <div className="sign-up-email-input">
           <TextField
             label="Email"
             variant="outlined"
@@ -60,7 +58,7 @@ function ForgotPassword () {
             onClick={onButtonClick}
           >
             Request password change
-            </Button>
+          </Button>
         </div>
       </div>
     </div>

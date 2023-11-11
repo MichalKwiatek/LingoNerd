@@ -11,7 +11,7 @@ import { getAreContextsForWordLoaded } from '../Redux/Context/selectors'
 import WordVideoList from './WordVideoList'
 import mixpanel from 'mixpanel-browser'
 
-function Context (props) {
+function Context(props) {
   const dispatch = useDispatch()
   const isMobile = useMediaQuery('(max-width:768px)')
   const isSmall = useMediaQuery('(max-width:1600px)')
@@ -30,30 +30,28 @@ function Context (props) {
     }
   }, [props.wordId, areLoaded])
 
-  function onClickContext (contextId) {
+  function onClickContext(contextId) {
     mixpanel.track('ANOTHER_VIDEO_CHOSEN_FROM_LIST', {
-      contextId
+      contextId,
     })
 
-    const newIndex = contexts.findIndex(c => c.id === contextId)
+    const newIndex = contexts.findIndex((c) => c.id === contextId)
 
     setContext(contexts[newIndex])
     setContextIndex(newIndex)
   }
 
-  function onNextVideo () {
+  function onNextVideo() {
     mixpanel.track('ANOTHER_VIDEO')
 
     dispatch(setWordContextAsSeen(props.wordId, context.id))
-    const newIndex = (contextIndex + 1) >= contexts.length
-      ? 0
-      : (contextIndex + 1)
+    const newIndex = contextIndex + 1 >= contexts.length ? 0 : contextIndex + 1
 
     setContext(contexts[newIndex])
     setContextIndex(newIndex)
   }
 
-  function onClick () {
+  function onClick() {
     mixpanel.track('NEXT_WORD')
 
     dispatch(setWordContextAsSeen(props.wordId, context.id))
@@ -61,24 +59,34 @@ function Context (props) {
   }
 
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: isMobile ? 'center' : 'flex-end',
-      marginLeft: isMobile ? 0 : 240,
-      height: '100%'
-    }}>
-      <div className="context"
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: isMobile ? 'center' : 'flex-end',
+        marginLeft: isMobile ? 0 : 240,
+        height: '100%',
+      }}
+    >
+      <div
+        className="context"
         style={{
           width: isMobile ? '100%' : 'calc(100% - 300px)',
           height: '100%',
           display: 'flex',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
         }}
       >
-        <div className={'content'} style={{
-          flexDirection: isMobile ? 'column' : 'row'
-        }}>
-          <Video id={context?.id} videoId={context?.videoId} wordId={props.wordId}></Video>
+        <div
+          className={'content'}
+          style={{
+            flexDirection: isMobile ? 'column' : 'row',
+          }}
+        >
+          <Video
+            id={context?.id}
+            videoId={context?.videoId}
+            wordId={props.wordId}
+          ></Video>
         </div>
         <div className={'content-button-container'}>
           <Button
@@ -97,11 +105,13 @@ function Context (props) {
             onClick={onClick}
           >
             Next
-      </Button>
+          </Button>
         </div>
       </div>
-      {!isSmall && (<WordVideoList wordId={props.wordId} onClickContext={onClickContext} />)}
-    </div >
+      {!isSmall && (
+        <WordVideoList wordId={props.wordId} onClickContext={onClickContext} />
+      )}
+    </div>
   )
 }
 
