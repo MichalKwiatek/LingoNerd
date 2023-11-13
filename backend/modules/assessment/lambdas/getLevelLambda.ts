@@ -1,7 +1,7 @@
 import { Context, APIGatewayProxyResult, APIGatewayEvent } from "aws-lambda";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { GetCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import createLambdaResponse from "../../utlis/createLambdaResponse";
+import createLambdaResponse from "../../../utlis/createLambdaResponse";
 
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);

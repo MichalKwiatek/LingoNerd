@@ -19,7 +19,7 @@ function createAssessmentStack(stack: Stack) {
     timeout: Duration.seconds(5),
     runtime: lambda.Runtime.NODEJS_18_X,
     handler: "handler",
-    entry: path.join(__dirname, `../modules/assessment/getLevelLambda.ts`),
+    entry: path.join(__dirname, `../modules/assessment/lambdas/getLevelLambda.ts`),
     environment: {
       USER_LEVEL_TABLE: userLevelTable.tableName,
     },
