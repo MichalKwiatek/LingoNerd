@@ -4,8 +4,9 @@ import * as path from "path";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as apigw from "aws-cdk-lib/aws-apigateway";
+import * as cognito from "aws-cdk-lib/aws-cognito";
 
-function createAssessmentStack(stack: Stack) {
+function createAssessmentStack(stack: Stack, userPool: cognito.UserPool) {
   const userLevelTable = new dynamodb.Table(stack, "UserLevel", {
     partitionKey: {
       name: "id",
@@ -19,7 +20,10 @@ function createAssessmentStack(stack: Stack) {
     timeout: Duration.seconds(5),
     runtime: lambda.Runtime.NODEJS_18_X,
     handler: "handler",
-    entry: path.join(__dirname, `../modules/assessment/lambdas/getLevelLambda.ts`),
+    entry: path.join(
+      __dirname,
+      `../modules/assessment/lambdas/getLevelLambda.ts`
+    ),
     environment: {
       USER_LEVEL_TABLE: userLevelTable.tableName,
     },
@@ -30,12 +34,25 @@ function createAssessmentStack(stack: Stack) {
     restApiName: `assessment-api`,
     defaultCorsPreflightOptions: {
       allowOrigins: apigw.Cors.ALL_ORIGINS,
-    }
+    },
+  });
+
+  const authorizer = new apigw.CfnAuthorizer(stack, "CognitoAuthorizer", {
+    restApiId: assessmentApi.restApiId,
+    type: "COGNITO_USER_POOLS",
+    name: "AssessmentAuthorizer",
+    identitySource: "method.request.header.Authorization",
+    providerArns: [userPool.userPoolArn],
   });
 
   const getLevelLambdaIntegration = new apigw.LambdaIntegration(getLevelLambda);
   const blogPostsResource = assessmentApi.root.addResource("level");
-  blogPostsResource.addMethod("GET", getLevelLambdaIntegration);
+  blogPostsResource.addMethod("GET", getLevelLambdaIntegration, {
+    authorizationType: apigw.AuthorizationType.COGNITO,
+    authorizer: {
+      authorizerId: authorizer.ref,
+    },
+  });
 }
 
 export default createAssessmentStack;

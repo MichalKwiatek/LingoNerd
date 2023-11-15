@@ -5,7 +5,7 @@ import * as path from "path";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 
-function createAuthorizationStack(stack: Stack) {
+function createAuthorizationStack(stack: Stack): cognito.UserPool {
   const userpool = new cognito.UserPool(stack, "app-user-pool", {
     userPoolName: "app-user-pool",
     signInAliases: {
@@ -79,6 +79,8 @@ function createAuthorizationStack(stack: Stack) {
     cognito.UserPoolOperation.POST_CONFIRMATION,
     createUserLambda
   );
+
+  return userpool;
 }
 
 export default createAuthorizationStack;

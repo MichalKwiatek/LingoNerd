@@ -2,6 +2,7 @@ import { Context, APIGatewayProxyResult, APIGatewayEvent } from "aws-lambda";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { GetCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import createLambdaResponse from "../../../utlis/createLambdaResponse";
+import { authorize } from "../../authorization/authorize";
 
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
@@ -11,16 +12,12 @@ export const handler = async (
   context: Context
 ): Promise<APIGatewayProxyResult> => {
   console.log(`Event: ${JSON.stringify(event, null, 2)}`);
-  console.log(`Context: ${JSON.stringify(context, null, 2)}`);
-  if (event.queryStringParameters?.id == null) {
-    return createLambdaResponse(400, {
-      error: "Missing id in query parameters",
-    });
-  }
+
+  const userId = authorize(event);
 
   const command = new GetCommand({
     TableName: process.env.USER_LEVEL_TABLE,
-    Key: { id: event.queryStringParameters?.id },
+    Key: { id: userId },
   });
 
   const response = await docClient.send(command);
