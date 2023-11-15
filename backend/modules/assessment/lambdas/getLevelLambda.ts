@@ -11,21 +11,27 @@ export const handler = async (
   event: APIGatewayEvent,
   context: Context
 ): Promise<APIGatewayProxyResult> => {
-  console.log(`Event: ${JSON.stringify(event, null, 2)}`);
+  try {
+    console.log(`Event: ${JSON.stringify(event, null, 2)}`);
 
-  const userId = authorize(event);
+    const userId = await authorize(event);
 
-  const command = new GetCommand({
-    TableName: process.env.USER_LEVEL_TABLE,
-    Key: { id: userId },
-  });
+    const command = new GetCommand({
+      TableName: process.env.USER_LEVEL_TABLE,
+      Key: { id: userId },
+    });
 
-  const response = await docClient.send(command);
-  console.log("dynamo db response", response);
+    const response = await docClient.send(command);
 
-  if (response.Item == null || response.Item.level == null) {
-    return createLambdaResponse(404, { error: "No level for this user" });
+    if (response.Item == null || response.Item.level == null) {
+      return createLambdaResponse(404, { error: "No level for this user" });
+    }
+
+    return createLambdaResponse(200, { level: response.Item.level });
+  } catch (error: any) {
+    console.error(error);
+    const statusCode = error?.statusCode ?? 500;
+    const message = error?.message ?? "Internal Server Error";
+    return createLambdaResponse(statusCode, { error: message });
   }
-
-  return createLambdaResponse(200, { level: response.Item.level });
 };

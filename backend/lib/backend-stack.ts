@@ -7,7 +7,7 @@ export class BackendStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const userPool = createAuthorizationStack(this);
-    createAssessmentStack(this, userPool);
+    const { userpool, userTableName } = createAuthorizationStack(this);
+    createAssessmentStack(this, userpool, userTableName);
   }
 }
