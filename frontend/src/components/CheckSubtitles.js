@@ -5,7 +5,6 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import '../styles/placement.css'
 import Typography from '@mui/material/Typography'
 
 import ReactPlayer from 'react-player'

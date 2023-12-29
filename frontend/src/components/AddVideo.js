@@ -5,7 +5,6 @@ import TextField from '@mui/material/TextField'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import '../styles/placement.css'
 import Typography from '@mui/material/Typography'
 
 import ReactPlayer from 'react-player'

@@ -5,7 +5,6 @@ import { TextareaAutosize } from '@mui/base/TextareaAutosize'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import '../styles/placement.css'
 import Typography from '@mui/material/Typography'
 
 import ReactPlayer from 'react-player'

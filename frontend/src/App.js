@@ -8,7 +8,7 @@ import WordCounters from './components/WordCounters'
 import mixpanel from 'mixpanel-browser'
 import NewWordsPresentation from './components/NewWordsPresentation'
 import NewWordsLearning from './components/NewWordsLearning'
-import Placement from './components/Placement'
+import Placement from './components/Placement/Placement'
 import Login from './components/Login'
 import AddVideo from './components/AddVideo'
 import { getIsInitialLoadingFinished } from './Redux/selectors'
@@ -29,12 +29,7 @@ import VideoPage from './components/VideoPage'
 import MyVideosPage from './components/MyVideosPage'
 import LikedVideosPage from './components/LikedVideosPage'
 
-export const AUTH_ROUTES = [
-  '/signup',
-  '/login',
-  '/new-password',
-  '/forgot-password',
-]
+export const AUTH_ROUTES = ['/signup', '/login', '/new-password', '/forgot-password']
 export const CONTENT_ROUTES = ['add-video', 'add-subtitles', 'check-subtitles']
 
 Amplify.configure(awsconfig)
@@ -82,18 +77,11 @@ function App() {
     <div className="App">
       {!isInitialLoadingFinished && <Loader />}
       {!AUTH_ROUTES.includes(location.pathname) && (
-        <WordCounters
-          isSideMenuOpen={isSideMenuOpen}
-          handleDrawerToggle={() => setIsSideMenuOpen(!isSideMenuOpen)}
-        />
+        <WordCounters isSideMenuOpen={isSideMenuOpen} handleDrawerToggle={() => setIsSideMenuOpen(!isSideMenuOpen)} />
       )}
-      {!AUTH_ROUTES.includes(location.pathname) &&
-        !CONTENT_ROUTES.includes(route) && (
-          <SideMenu
-            isSideMenuOpen={isSideMenuOpen}
-            onSideMenuClose={() => setIsSideMenuOpen(false)}
-          />
-        )}
+      {!AUTH_ROUTES.includes(location.pathname) && !CONTENT_ROUTES.includes(route) && (
+        <SideMenu isSideMenuOpen={isSideMenuOpen} onSideMenuClose={() => setIsSideMenuOpen(false)} />
+      )}
       <Routes>
         <Route path="/" element={<NewWordsPresentation />} />
         <Route path="/daily-flashcards" element={<DailyFlashcards />} />
@@ -101,10 +89,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/new-password" element={<NewPassword />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route
-          path="/new-words-presentation"
-          element={<NewWordsPresentation />}
-        />
+        <Route path="/new-words-presentation" element={<NewWordsPresentation />} />
         <Route path="/new-words-learning" element={<NewWordsLearning />} />
         <Route path="/placement" element={<Placement />} />
         <Route path="/add-video" element={<AddVideo />} />
