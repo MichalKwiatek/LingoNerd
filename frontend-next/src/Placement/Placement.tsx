@@ -1,12 +1,10 @@
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './placement.module.css';
-import useGetInitialLevel from './useGetInitialLevel';
-import useGetWordsForLevel from './useGetWordsForLevel';
 import ChooseLevel from './ChooseLevel';
 import { getAmountOfLevels } from './placementApi';
 import PlacementProvider from './PlacementProvider';
+import SelectLevelButton from './SelectLevelButton';
 
 const WORDS_TO_SHOW = 10;
 const WORDS_TO_SHOW_ARRAY = Array.from({ length: WORDS_TO_SHOW }, (_, i) => i);
@@ -25,10 +23,6 @@ async function Placement() {
   const levelsCount = await fetchAmountOfLevels();
 
   // const { words, requestStatus: wordsRequestStatus } = useGetWordsForLevel(value, WORDS_TO_SHOW);
-
-  // const onSelectLevel = () => {
-  //   console.log('selected level', value);
-  // };
 
   return (
     <PlacementProvider>
@@ -57,9 +51,7 @@ async function Placement() {
               </React.Fragment>
             ))}
       </div> */}
-        {/* <Button color="primary" variant="contained" onClick={onSelectLevel}>
-        Choose level
-      </Button> */}
+        <SelectLevelButton />
       </div>
     </PlacementProvider>
   );
