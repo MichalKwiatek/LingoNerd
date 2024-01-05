@@ -59,13 +59,22 @@
   }
 }
 
-.skeleton {
+.wordSkeleton {
   margin-top: 5px;
   height: 24px;
 }
 
 @media (min-width: 768px) {
-  .skeleton {
+  .wordSkeleton {
     max-width: 420px;
   }
+}
+
+.currentLevelSkeleton {
+  width: 300px;
+  height: 32px;
+}
+
+.sliderSkeleton {
+  height: 30px;
 }

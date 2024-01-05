@@ -1,8 +1,12 @@
 export type RequestStatus = 'loading' | 'success' | 'error';
-export type Response<T> = {
-  status: RequestStatus;
-  data: T;
-};
+export type Response<T> =
+  | {
+      status: RequestStatus;
+      data: T;
+    }
+  | {
+      status: 'loading';
+    };
 
 export type GetAmountOfLevelsResponse = Response<{ count: number }>;
 export const getAmountOfLevels = async (): Promise<GetAmountOfLevelsResponse> => ({

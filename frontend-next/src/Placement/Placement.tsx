@@ -1,58 +1,46 @@
-'use client';
-
 import Button from '@mui/material/Button';
-import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
 import React, { useEffect, useState } from 'react';
 import styles from './placement.module.css';
 import useGetInitialLevel from './useGetInitialLevel';
-import Loader from '../Loader/Loader';
-import useGetAmountOfLevels from './useGetAmountOfLevels';
 import useGetWordsForLevel from './useGetWordsForLevel';
-import { Skeleton } from '@mui/material';
+import ChooseLevel from './ChooseLevel';
+import { getAmountOfLevels } from './placementApi';
+import PlacementProvider from './PlacementProvider';
 
 const WORDS_TO_SHOW = 10;
 const WORDS_TO_SHOW_ARRAY = Array.from({ length: WORDS_TO_SHOW }, (_, i) => i);
 
-function Placement() {
-  const { initialLevel, requestStatus: levelRequestStatus } = useGetInitialLevel();
-  const { count: levelsCount, requestStatus: levelsCountRequestStatus } = useGetAmountOfLevels();
+async function fetchAmountOfLevels(): Promise<number> {
+  const response = await getAmountOfLevels();
 
-  const [value, setValue] = useState(initialLevel);
+  if (response.status !== 'success') {
+    throw new Error('Failed to fetch data');
+  }
 
-  const { words, requestStatus: wordsRequestStatus } = useGetWordsForLevel(value, WORDS_TO_SHOW);
+  return response.data.count;
+}
 
-  useEffect(() => {
-    if (levelRequestStatus === 'success') {
-      setValue(initialLevel);
-    }
-  }, [initialLevel, levelRequestStatus]);
+async function Placement() {
+  const levelsCount = await fetchAmountOfLevels();
 
-  const onSelectLevel = () => {
-    console.log('selected level', value);
-  };
+  // const { words, requestStatus: wordsRequestStatus } = useGetWordsForLevel(value, WORDS_TO_SHOW);
 
-  const handleChange = (_event: Event, newValue: number | number[]) => {
-    setValue(newValue as number);
-  };
+  // const onSelectLevel = () => {
+  //   console.log('selected level', value);
+  // };
 
   return (
-    <div className={styles.placement}>
-      <div className={styles.title}>
-        <Typography variant="h5">Move the slider below to change your initial level</Typography>
-      </div>
-      <div className={styles.currentLevel}>
-        <Typography variant="h5">
-          Level: {(value ?? 0) + 1}/{levelsCount}
-        </Typography>
-      </div>
-      {initialLevel != null && levelsCount != null && (
-        <Slider defaultValue={initialLevel} min={0} max={levelsCount - 1} onChange={handleChange} />
-      )}
-      <div className={styles.wordsTitle}>
-        <Typography fontWeight={600}>Words to learn on the level:</Typography>
-      </div>
-      <div className={styles.wordList}>
+    <PlacementProvider>
+      <div className={styles.placement}>
+        <div className={styles.title}>
+          <Typography variant="h5">Move the slider below to change your initial level</Typography>
+        </div>
+        <ChooseLevel levelsCount={levelsCount} />
+        <div className={styles.wordsTitle}>
+          <Typography fontWeight={600}>Words to learn on the level:</Typography>
+        </div>
+        {/* <div className={styles.wordList}>
         {words
           ? words.map((word) => (
               <React.Fragment key={word.id}>
@@ -63,16 +51,17 @@ function Placement() {
             ))
           : WORDS_TO_SHOW_ARRAY.map((_, i) => (
               <React.Fragment key={i}>
-                <div className={styles.skeleton}>
+                <div className={styles.wordSkeleton}>
                   <Skeleton />
                 </div>
               </React.Fragment>
             ))}
-      </div>
-      <Button color="primary" variant="contained" onClick={onSelectLevel}>
+      </div> */}
+        {/* <Button color="primary" variant="contained" onClick={onSelectLevel}>
         Choose level
-      </Button>
-    </div>
+      </Button> */}
+      </div>
+    </PlacementProvider>
   );
 }
 
