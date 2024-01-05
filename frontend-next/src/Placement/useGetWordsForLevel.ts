@@ -1,21 +1,24 @@
 import { useEffect, useState } from 'react';
 import { GetWordsPerLevelResponse, getWordsPerLevel } from './placementApi';
+import useDebounce from '../hooks/useDebounce';
 
 function useGetWordsForLevel(level: number | null, numberOfWords = 10) {
   const [queryData, setQueryData] = useState<GetWordsPerLevelResponse | null>(null);
 
+  const debouncedLevel = useDebounce(level, 200);
+
   useEffect(() => {
     const fetchData = async () => {
-      if (level == null) {
+      if (debouncedLevel == null) {
         return;
       }
 
-      const response = await getWordsPerLevel(level, numberOfWords);
+      const response = await getWordsPerLevel(debouncedLevel, numberOfWords);
       setQueryData(response);
     };
 
     fetchData();
-  }, [level, numberOfWords]);
+  }, [debouncedLevel, numberOfWords]);
 
   if (queryData?.status !== 'success') {
     return {
