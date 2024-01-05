@@ -1,17 +1,71 @@
 .placement {
-  background: white;
-  height: 100%;
+  padding: 30px;
 }
 
-.word-list {
+@media (min-width: 768px) {
+  .placement {
+    padding: 50px;
+    width: calc(100% - 240px);
+    margin-left: 240px;
+  }
+}
+
+.title {
+  margin-bottom: 15px;
+}
+
+@media (min-width: 768px) {
+  .title {
+    margin-bottom: 30px;
+  }
+}
+
+.currentLevel {
+  margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+  .currentLevel {
+    margin-bottom: 20px;
+  }
+}
+
+.currentLevel {
+  margin-top: 5px;
+}
+
+@media (min-width: 768px) {
+  .currentLevel {
+    margin-bottom: 10px;
+  }
+}
+
+.wordList {
   margin-top: 10px;
   margin-bottom: 30px;
 }
 
 .word {
   margin-top: 5px;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-.value-info {
-  margin-bottom: 20px !important;
+@media (min-width: 768px) {
+  .word {
+    max-width: 420px;
+  }
+}
+
+.skeleton {
+  margin-top: 5px;
+  height: 24px;
+}
+
+@media (min-width: 768px) {
+  .skeleton {
+    max-width: 420px;
+  }
 }
