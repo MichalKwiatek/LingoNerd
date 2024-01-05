@@ -3,7 +3,7 @@ import { GetPlacementLevelResponse, getPlacementLevel } from './placementApi';
 
 const DEFAULT_INITIAL_LEVEL = 0;
 
-function useGetAmountOfLevels() {
+function useGetInitialLevel() {
   const [queryData, setQueryData] = useState<GetPlacementLevelResponse | null>(null);
 
   useEffect(() => {
@@ -28,4 +28,4 @@ function useGetAmountOfLevels() {
   };
 }
 
-export default useGetAmountOfLevels;
+export default useGetInitialLevel;
