@@ -13,6 +13,7 @@ function useGetWordsForLevel(level: number | null, numberOfWords = 10) {
         return;
       }
 
+      setQueryData((state) => ({ ...state, status: 'loading' }));
       const response = await getWordsPerLevel(debouncedLevel, numberOfWords);
       setQueryData(response);
     };
